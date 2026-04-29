@@ -1100,6 +1100,7 @@ GameObject:
   - component: {fileID: 9198111455066845262}
   - component: {fileID: 8350274460085987136}
   - component: {fileID: 1415596964867385983}
+  - component: {fileID: 6265603875206352030}
   - component: {fileID: 8442458181626691191}
   - component: {fileID: -3071831973943685498}
   - component: {fileID: 2966891315230817398}
@@ -1142,7 +1143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f21b187d32f5543baa7e6faa1e65e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  PlayerData: {fileID: 11400000, guid: a549edd81e17e0d4bb4a323b0d327e2d, type: 2}
 --- !u!114 &8350274460085987136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1155,7 +1155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f45892ff9e95c0e4e9b017eed8ecc929, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  _moveSpeed: 4
+  _moveSpeed: 2.5
   _gravityScale: 35
   _turningSpeed: 0.1
 --- !u!114 &1415596964867385983
@@ -1170,6 +1170,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18746a00a5677664fb79d362fd413485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInput
+--- !u!114 &6265603875206352030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2904072180145692208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3ba3b4cec39f7640813e47c9c0fdf65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerCore
+  PlayerData: {fileID: 11400000, guid: a549edd81e17e0d4bb4a323b0d327e2d, type: 2}
 --- !u!95 &8442458181626691191
 Animator:
   serializedVersion: 7

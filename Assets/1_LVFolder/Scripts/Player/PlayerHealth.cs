@@ -6,15 +6,22 @@ public class PlayerHealth : PlayerBase, IDamaged
 {
     private float _currentHp;
 
-    private void Awake()
+    protected override void Awake()
     {
-        if(PlayerData == null)
+        base.Awake();
+
+        if (Core == null)
+        {
+            Debug.LogError("コアがないです！");
+            return;
+        }
+        if (Core.PlayerData == null)
         {
             Debug.LogError("SOデータがないです！");
             return;
         }
 
-        _currentHp = PlayerData.MaxHp;
+        _currentHp = Core.PlayerData.MaxHp;
     }
 
     public void ChangeHP(float value)
