@@ -8,6 +8,6 @@ namespace Enemy
         /// 敵にダメージを与える、マイナスで減らし、プラスで回復
         /// </summary>
         /// <param name="value"></param>
-        public void Damaged(float value);
+        public void ChangeHP(float value);
     }
 }

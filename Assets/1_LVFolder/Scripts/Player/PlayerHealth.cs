@@ -17,7 +17,7 @@ public class PlayerHealth : PlayerBase, IDamaged
         _currentHp = PlayerData.MaxHp;
     }
 
-    public void Damaged(float value)
+    public void ChangeHP(float value)
     {
         _currentHp += value;
 
