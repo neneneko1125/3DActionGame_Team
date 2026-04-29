@@ -5,7 +5,7 @@ public class E_Look : MonoBehaviour
     [Header("プレイヤーをターゲットとするか")]
     [SerializeField] private bool _targetPlayer;
     [Header("なにをターゲットとするか(プレイヤー以外の場合)")]
-    [SerializeField] private GameObject _target;
+    public GameObject _target;
 
     private void Start()
     {

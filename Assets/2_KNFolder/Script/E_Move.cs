@@ -1,4 +1,6 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Enemy
 {
@@ -7,15 +9,18 @@ namespace Enemy
         [Header("プレイヤーをターゲットとするか")]
         [SerializeField] private bool _targetPlayer;
         [Header("なにをターゲットとするか(プレイヤー以外の場合)")]
-        [SerializeField] private GameObject _target;
+        public GameObject _target;
         [Header("移動スピード")]
         [SerializeField] private float _moveSpeed = 1;
-        [Header("最短距離以下なら離れるか")]
-        [SerializeField] private bool _makeDistance;
+        //[Header("最短距離以下なら離れるか")]
+        //[SerializeField] private bool _makeDistance;
         [Header("最短距離")]
         [SerializeField] private float _minDistance;
 
         private Rigidbody _rb;
+        private Animator _animator;
+
+        private NavMeshAgent _agent;
 
         private void Start()
         {
@@ -25,28 +30,30 @@ namespace Enemy
             }
 
             _rb = GetComponent<Rigidbody>();
-        }
-        private void FixedUpdate()
-        {
-            if (!_target) return;
+            _animator = GetComponent<Animator>();
 
-            Vector3 vec = _target.transform.position - transform.position;
-            if (vec.magnitude > _minDistance)
+            _agent = GetComponent<NavMeshAgent>();
+            _agent.speed = _moveSpeed;
+            _agent.stoppingDistance = _minDistance;
+
+            transform.LookAt(_agent.destination);
+        }
+
+        private void Update()
+        {
+            if (_agent.enabled == false) return;
+
+            _agent.SetDestination(_target.transform.position);
+
+            //十分に近づいている時
+            if (_agent.remainingDistance <= _agent.stoppingDistance)
             {
-                _rb.linearVelocity = vec.normalized * _moveSpeed;
+                _animator.SetBool("isWalking", false);
             }
             else
             {
-                if (_makeDistance)
-                {
-                    _rb.linearVelocity = vec.normalized * -_moveSpeed;
-                }
-                else
-                {
-                    _rb.linearVelocity = Vector3.zero;
-                }
+                _animator.SetBool("isWalking", true);
             }
-
         }
     }
 }

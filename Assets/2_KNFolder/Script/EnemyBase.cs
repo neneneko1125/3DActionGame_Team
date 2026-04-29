@@ -8,12 +8,19 @@ namespace Enemy
 
         /*[HideInInspector]*/ protected float Hp;
 
+        private bool _registered;
         private void Awake()
         {
             if (EnemyManager.Instance)
+            {
                 EnemyManager.Instance.Register(this);
-            else
-                Debug.Log("Awake‚©‚çStart‚É‚µ‚Ä‚­‚¾‚³‚¢...");
+                _registered = true;
+            }
+        }
+        private void Start()
+        {
+            if (!_registered)
+                EnemyManager.Instance.Register(this);
         }
 
         private void OnDestroy()

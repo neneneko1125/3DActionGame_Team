@@ -16,5 +16,9 @@ namespace Enemy
                 Destroy(gameObject);
             }
         }
+        private void OnCollisionStay(Collision collision)
+        {
+            Debug.Log(collision.gameObject.name);
+        }
     }
 }
