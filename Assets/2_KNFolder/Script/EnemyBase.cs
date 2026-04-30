@@ -9,7 +9,7 @@ namespace Enemy
         [Header("タ―ゲット")]
         public GameObject _target;
 
-        [SerializeField] protected float Hp;
+        public float Hp;
 
         private bool _registered;
 

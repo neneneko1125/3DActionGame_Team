@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 490552859ecf51e4e87c29066a9c2037, type: 3}
   m_Name: SlimeData
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  MaxHp: 2
+  MaxHp: 3
