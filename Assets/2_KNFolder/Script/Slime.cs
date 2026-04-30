@@ -16,7 +16,7 @@ namespace Enemy
 
         private Coroutine _currentCoroutine;
 
-        private EnemyState currentState;
+        private EnemyState _currentState;
 
         private static readonly int _isWalking = Animator.StringToHash("isWalking");
         private static readonly int _isIdling = Animator.StringToHash("isIdling");
@@ -35,16 +35,16 @@ namespace Enemy
         }
         private void Update()
         {
-            switch (currentState)
+            switch (_currentState)
             {
                 case EnemyState.Idle:
-                    currentState = EnemyState.Move; // œpœj—\’è
+                    _currentState = EnemyState.Move; // œpœj—\’è
                     break;
                 case EnemyState.Move:
                     _moveModule.OnTick();
 
                     if (Vector3.Distance(_target.transform.position, transform.position) <= _attackRange)
-                        currentState = EnemyState.Attack;
+                        _currentState = EnemyState.Attack;
                     break;
                 case EnemyState.Attack:
                     if (_currentCoroutine == null)
@@ -75,14 +75,14 @@ namespace Enemy
             yield return new WaitForSeconds(0.1f);
 
             _currentCoroutine = null;
-            currentState = EnemyState.Idle;
+            _currentState = EnemyState.Idle;
         }
 
         private IEnumerator DamagedSequence()
         {
             if (Hp <= 0)
             {
-                currentState = EnemyState.Dead;
+                _currentState = EnemyState.Dead;
                 SetAnimation(_dead);
                 yield return StartCoroutine(WaitForAnimation("Die"));
                 Destroy(gameObject, 1.5f);
@@ -93,7 +93,7 @@ namespace Enemy
                 yield return StartCoroutine(WaitForAnimation("GetHit"));
                 _currentCoroutine = null;
                 SetAnimation(0);
-                currentState = EnemyState.Idle;
+                _currentState = EnemyState.Idle;
             }
         }
 
@@ -129,7 +129,7 @@ namespace Enemy
             {
                 if (_currentCoroutine != null) StopCoroutine(_currentCoroutine);
                 _currentCoroutine = null;
-                currentState = EnemyState.Damaged;
+                _currentState = EnemyState.Damaged;
             }
         }
         private void OnCollisionStay(Collision collision)
