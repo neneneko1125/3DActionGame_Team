@@ -1106,7 +1106,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fd60b57659021c439f1e1a87c796999, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraManager
-  _playerTransform: {fileID: 717820114}
   _mouseSensivity: 2
   _distance_Y: 1
   _distance_Z: 3
@@ -10507,11 +10506,6 @@ MeshCollider:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1317272857336444, guid: 8bfc0c575dc10a34c8eb5102952d57c1, type: 3}
   m_PrefabInstance: {fileID: 1427520247}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &717820114 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3917728675660045594, guid: 8a1276aec1e6eb246bd12861e851087f, type: 3}
-  m_PrefabInstance: {fileID: 2099107998}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &718367715 stripped
 GameObject:
@@ -26812,10 +26806,6 @@ PrefabInstance:
     - target: {fileID: 5000436142546957334, guid: acc8435028682c748abfb44f1628b5d3, type: 3}
       propertyPath: m_Name
       value: Enemy_Slime
-      objectReference: {fileID: 0}
-    - target: {fileID: 6639640567694072573, guid: acc8435028682c748abfb44f1628b5d3, type: 3}
-      propertyPath: _moveSpeed
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9086581704315987404, guid: acc8435028682c748abfb44f1628b5d3, type: 3}
       propertyPath: _target

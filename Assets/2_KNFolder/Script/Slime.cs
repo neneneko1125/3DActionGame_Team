@@ -1,43 +1,140 @@
 using System.Collections;
+using Unity.Collections;
 using UnityEngine;
 
 namespace Enemy
 {
     public class Slime : EnemyBase, IDamaged
     {
-        [Header("ÉIÉäÉWÉiÉãê›íË")]
-        [SerializeField] private GameObject _target;
         [Header("çUåÇÇçsÇ§ç≈í∑ãóó£")]
         [SerializeField] private float _attackRange;
 
+        private Animator _anim;
+
+        private E_Move _moveModule;
+        private E_Look _lookModule;
+
         private Coroutine _currentCoroutine;
 
+        private EnemyState currentState;
+
+        private static readonly int _isWalking = Animator.StringToHash("isWalking");
+        private static readonly int _isIdling = Animator.StringToHash("isIdling");
+        private static readonly int _isAttacking = Animator.StringToHash("isAttacking");
+        private static readonly int _isDamaged = Animator.StringToHash("isDamaged");
+        private static readonly int _dead = Animator.StringToHash("dead");
+
+        protected override void Start()
+        {
+            base.Start();
+
+            _anim = GetComponent<Animator>();
+
+            _moveModule = GetComponent<E_Move>();
+            _lookModule = GetComponent<E_Look>();
+        }
         private void Update()
         {
-            if (_currentCoroutine != null) return;
-
-            if ((_target.transform.position - transform.position).magnitude <= _attackRange)
+            switch (currentState)
             {
-                _currentCoroutine = StartCoroutine(Attack());
+                case EnemyState.Idle:
+                    currentState = EnemyState.Move; // úpújó\íË
+                    break;
+                case EnemyState.Move:
+                    _moveModule.OnTick();
+
+                    if (Vector3.Distance(_target.transform.position, transform.position) <= _attackRange)
+                        currentState = EnemyState.Attack;
+                    break;
+                case EnemyState.Attack:
+                    if (_currentCoroutine == null)
+                        _currentCoroutine = StartCoroutine(AttackSequence());
+                    break;
+
+                case EnemyState.Damaged:
+                    if (_currentCoroutine == null)
+                        _currentCoroutine = StartCoroutine(DamagedSequence());
+                    break;
+                case EnemyState.Dead:
+                    break;
             }
         }
 
-        private IEnumerator Attack()
+        private IEnumerator AttackSequence()
+        {
+            SetAnimation(_isIdling);
+            yield return StartCoroutine(WaitForAnimation("IdleBattle"));
+
+            _lookModule.OnTick();
+            SetAnimation(_isAttacking);
+            yield return StartCoroutine(WaitForAnimation("Attack01"));
+
+            SetAnimation(_isIdling);
+            yield return StartCoroutine(WaitForAnimation("IdleBattle"));
+
+            yield return new WaitForSeconds(0.1f);
+
+            _currentCoroutine = null;
+            currentState = EnemyState.Idle;
+        }
+
+        private IEnumerator DamagedSequence()
+        {
+            if (Hp <= 0)
+            {
+                currentState = EnemyState.Dead;
+                SetAnimation(_dead);
+                yield return StartCoroutine(WaitForAnimation("Die"));
+                Destroy(gameObject, 1.5f);
+            }
+            else
+            {
+                SetAnimation(_isDamaged);
+                yield return StartCoroutine(WaitForAnimation("GetHit"));
+                _currentCoroutine = null;
+                SetAnimation(0);
+                currentState = EnemyState.Idle;
+            }
+        }
+
+        private IEnumerator WaitForAnimation(string stateName)
         {
             yield return null;
+
+            while (!_anim.GetCurrentAnimatorStateInfo(0).IsName(stateName))
+            {
+                yield return null;
+            }
+
+            AnimatorStateInfo state = _anim.GetCurrentAnimatorStateInfo(0);
+            while (state.IsName(stateName) && state.normalizedTime < 0.95f)
+            {
+                state = _anim.GetCurrentAnimatorStateInfo(0);
+                yield return null;
+            }
+        }
+        private void SetAnimation(int activeParam)
+        {
+            _anim.SetBool(_isWalking, activeParam == _isWalking);
+            _anim.SetBool(_isIdling, activeParam == _isIdling);
+            _anim.SetBool(_isAttacking, activeParam == _isAttacking);
+            _anim.SetBool(_isDamaged, activeParam == _isDamaged);
+            _anim.SetBool(_dead, activeParam == _dead);
         }
         public void ChangeHP(float value)
         {
             Hp += value;
 
-            if (Hp <= 0)
+            if (value < 0)
             {
-                Destroy(gameObject);
+                if (_currentCoroutine != null) StopCoroutine(_currentCoroutine);
+                _currentCoroutine = null;
+                currentState = EnemyState.Damaged;
             }
         }
         private void OnCollisionStay(Collision collision)
         {
-            Debug.Log(collision.gameObject.name);
+            //Debug.Log(collision.gameObject.name);
         }
     }
 }

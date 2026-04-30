@@ -6,10 +6,14 @@ namespace Enemy
     {
         public EnemyData EnemyData;
 
-        /*[HideInInspector]*/ protected float Hp;
+        [Header("タ―ゲット")]
+        public GameObject _target;
+
+        [SerializeField] protected float Hp;
 
         private bool _registered;
-        private void Awake()
+
+        protected virtual void Awake()
         {
             if (EnemyManager.Instance)
             {
@@ -17,20 +21,27 @@ namespace Enemy
                 _registered = true;
             }
         }
-        private void Start()
+        protected virtual void Start()
         {
             if (!_registered)
                 EnemyManager.Instance.Register(this);
+
+            Hp = EnemyData.MaxHp;
         }
 
+        public void SetTarget(GameObject target)
+        {
+            _target = target;
+        }
         private void OnDestroy()
         {
             EnemyManager.Instance.UnRegister(this);
         }
-
-        //public enum EnemyState
-        //{
-        //    Idle, Move, Attack, Damaged, Dead
-        //}
     }
+
+    public enum EnemyState
+    {
+        Idle, Move, Attack, Damaged, Dead
+    }
+
 }
