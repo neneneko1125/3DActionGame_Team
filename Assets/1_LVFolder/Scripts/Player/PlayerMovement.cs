@@ -1,48 +1,76 @@
+using Player;
 using System;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : PlayerBase
 {
-    [SerializeField] private float _moveSpeed = 8.0f;
-    [SerializeField] private float _gravityScale = 5.0f;
-    [SerializeField] private float _turningSpeed = 0.1f;
+    [SerializeField] private float _checkRadius = 1.0f;
+    [SerializeField] private LayerMask _groundLayer;
 
     private PlayerInput _input;
-    private Rigidbody _rb;
-    private Animator _anim;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _input = GetComponent<PlayerInput>();
-        _rb = GetComponent<Rigidbody>();
-        _anim = GetComponent<Animator>();
     }
 
     void FixedUpdate()
     {
-        //重力
-        _rb.AddForce(Vector3.down * _gravityScale, ForceMode.Acceleration);
-
+        if (IsGrounded())
+        {
+            // 弱い重力
+            Rb.AddForce(Vector3.down * Core.PlayerData.GroundGravity, ForceMode.Acceleration);
+        }
+        else
+        {
+            // 強めの重力
+            Rb.AddForce(Vector3.down * Core.PlayerData.FallGravity, ForceMode.Acceleration);
+        }
+        
         PerformMove();
+    }
+
+    private bool IsGrounded()
+    {
+        Vector3 spherePos = transform.position + Vector3.up * 0.05f;     //少し上にあげる
+        return Physics.CheckSphere(spherePos, _checkRadius, _groundLayer);
     }
 
     private void PerformMove()
     {
-        _rb.linearVelocity = _moveSpeed * _input.MoveDirection;
+        // Y速度を保存
+        float currentYVelocity = Rb.linearVelocity.y;
+
+        Vector3 targetVelocity = _input.MoveDirection * Core.PlayerData.MoveSpeed;
+
+        // ここで保存したYを使う　重力と競合しないようにするため
+        Rb.linearVelocity = new Vector3(targetVelocity.x, currentYVelocity, targetVelocity.z);
 
         //移動入力があれば
-        if(_input.MoveDirection.magnitude > 0.1f)
+        if (_input.MoveDirection.magnitude > 0.1f)
         {
             var playerRotation = Quaternion.LookRotation(_input.MoveDirection);
 
             //Slerpでなめらかにカメラを回転させる
-            transform.rotation = Quaternion.Slerp(transform.rotation, playerRotation, _turningSpeed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, playerRotation, Core.PlayerData.TurningSpeed);
 
-            _anim.SetBool("Walk", true);
+            Anim.SetBool("Walk", true);
         }
         else
         {
-            _anim.SetBool("Walk", false);
+            Anim.SetBool("Walk", false);
         }
+    }
+
+
+    private void OnDrawGizmosSelected()
+    {
+        Vector3 spherePos = transform.position + Vector3.up * 0.05f;
+
+        bool isGrounded = IsGrounded();
+        Gizmos.color = isGrounded ? Color.green : Color.red;
+
+        Gizmos.DrawWireSphere(spherePos, _checkRadius);
     }
 }

@@ -1,10 +1,9 @@
+using Player;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-    [SerializeField] private Transform _playerTransform;
-
     [SerializeField] private float _mouseSensivity = 2.0f;
 
     [SerializeField] private float _distance_Y = 2.0f;
@@ -16,8 +15,12 @@ public class CameraManager : MonoBehaviour
     private float _mouseMovement_X = 0f;
     private float _mouseMovement_Y = 0f;
 
+    private Transform _playerTransform;
+
     private void Start()
     {
+        _playerTransform = PlayerCore.Instance.transform;
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
