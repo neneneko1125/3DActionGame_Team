@@ -1144,6 +1144,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41f21b187d32f5543baa7e6faa1e65e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  _flashingTime: 0.05
+  _hpFillSpeedGreen: 15
+  _hpFillSpeedRed: 2
 --- !u!114 &8350274460085987136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1201,6 +1204,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3ba3b4cec39f7640813e47c9c0fdf65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerCore
+  IsStunned: 0
+  IsInvicible: 0
+  IsDead: 0
   PlayerData: {fileID: 11400000, guid: a549edd81e17e0d4bb4a323b0d327e2d, type: 2}
 --- !u!95 &8442458181626691191
 Animator:

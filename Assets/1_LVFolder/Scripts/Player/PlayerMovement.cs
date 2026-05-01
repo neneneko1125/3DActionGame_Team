@@ -48,18 +48,16 @@ public class PlayerMovement : PlayerBase
         Rb.linearVelocity = new Vector3(targetVelocity.x, currentYVelocity, targetVelocity.z);
 
         //移動入力があれば
-        if (_input.MoveDirection.magnitude > 0.1f)
+        if (_input.MoveDirection.sqrMagnitude > 0.01f)
         {
-            var playerRotation = Quaternion.LookRotation(_input.MoveDirection);
+            var targetRotation = Quaternion.LookRotation(_input.MoveDirection); //目標の回転
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Core.PlayerData.TurningSpeed);    //今の回転から目標の回転にゆっくり向かう
 
-            //Slerpでなめらかにカメラを回転させる
-            transform.rotation = Quaternion.Slerp(transform.rotation, playerRotation, Core.PlayerData.TurningSpeed);
-
-            Anim.SetBool("Walk", true);
+            Anim.SetBool(AnimIsWalking, true);
         }
         else
         {
-            Anim.SetBool("Walk", false);
+            Anim.SetBool(AnimIsWalking, false);
         }
     }
 

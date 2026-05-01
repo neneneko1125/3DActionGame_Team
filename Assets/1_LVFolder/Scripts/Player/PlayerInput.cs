@@ -12,26 +12,39 @@ public class PlayerInput : PlayerBase
 
     private void Update()
     {
-        InputDirection();
+        if (Core.IsStunned)
+        {
+            MoveDirection = Vector3.zero;
+            return;
+        }
+
+        InputMoveDirection();
         InputAttack();
     }
 
-    private void InputDirection()
+    private void InputMoveDirection()
     {
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
 
-        //カメラを基準としてプレイヤーの方向を決定
-        Vector3 cameraForward = Camera.main.transform.forward;
+        // カメラを基準にして、方向を決定する
         Vector3 cameraRight = Camera.main.transform.right;
-        MoveDirection = (cameraForward * z + cameraRight * x).normalized;
+        Vector3 cameraForward = Camera.main.transform.forward;
+        MoveDirection = (cameraRight * x + cameraForward * z).normalized;
     }
 
     private void InputAttack()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Anim.SetTrigger("Attack");
+            // 今攻撃ステートが発動中ならreturnする
+            if (Anim.GetCurrentAnimatorStateInfo(0).IsName(AttackStateName))
+            {
+                return;     
+            }
+
+            Anim.SetFloat(AnimAttackSpeed, Core.PlayerData.AttackSpeed);
+            Anim.SetTrigger(AnimAttackTrigger);
         }
     }
 }

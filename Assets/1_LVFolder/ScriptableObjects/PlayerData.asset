@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 282ab201162ce914fb4d455558066304, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
-  MaxHp: 1
+  MaxHp: 10
   AttackPower: 1
+  AttackSpeed: 1
   MoveSpeed: 2
   FallGravity: 25
   GroundGravity: 2
   TurningSpeed: 0.1
+  StunRecoverySpeed: 1
+  InvincibleDuration: 1
