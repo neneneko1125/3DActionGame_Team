@@ -11,6 +11,11 @@ public class PlayerHealth : PlayerBase, IDamaged
     [SerializeField] private float _hpFillSpeedGreen;
     [SerializeField] private float _hpFillSpeedRed;
 
+    [Header("カメラの振動関連")]
+    [SerializeField] private float duration;
+    [SerializeField] private float strength;
+    [SerializeField] private float vibrato;
+
     private Renderer[] _renderers; // 全てのメッシュを格納する配列
 
     private float _currentHp;
@@ -62,6 +67,7 @@ public class PlayerHealth : PlayerBase, IDamaged
 
         if(value < 0)   //ダメージをくらったとき
         {
+            CameraManager.Instance.StartShake(duration, strength, vibrato);
             StartCoroutine(DamageSequence());
         }
 
