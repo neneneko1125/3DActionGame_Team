@@ -19,6 +19,8 @@ namespace Enemy
 
         private EnemyState _currentState;
 
+        private float knockbackCounter;
+
         private static readonly int _isWalking = Animator.StringToHash("isWalking");
         private static readonly int _isIdling = Animator.StringToHash("isIdling");
         private static readonly int _isAttacking = Animator.StringToHash("isAttacking");
@@ -55,6 +57,7 @@ namespace Enemy
                 case EnemyState.Damaged:
                     if (_currentCoroutine == null)
                         _currentCoroutine = StartCoroutine(DamagedSequence());
+                    Knockback();
                     break;
                 case EnemyState.Dead:
                     break;
@@ -101,6 +104,12 @@ namespace Enemy
             }
         }
 
+        private void Knockback()
+        {
+            transform.position = transform.position - 3f * knockbackCounter * (_target.transform.position - transform.position).normalized * Time.deltaTime;
+            knockbackCounter -= Time.deltaTime;
+        }
+
         private IEnumerator WaitForAnimation(string stateName)
         {
             yield return null;
@@ -128,6 +137,7 @@ namespace Enemy
         public void ChangeHP(float value)
         {
             Hp += value;
+            knockbackCounter = Mathf.Abs(value);
 
             if (value < 0)
             {
