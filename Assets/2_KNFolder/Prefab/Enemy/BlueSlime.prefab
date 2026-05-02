@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bf1cc89357cb38428393ce786ba00c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AttackArea
-  damage: 1
+  damage: 2
 --- !u!1 &656231936421590930
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,7 +361,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d9c0226bd4324f01bc178cf4a515ef84, type: 2}
+  - {fileID: 2100000, guid: 6323b1b3cc3f5d9489e556adc8247093, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -812,7 +812,7 @@ GameObject:
   - component: {fileID: 6360347838661660195}
   - component: {fileID: 6194150627942038117}
   m_Layer: 7
-  m_Name: Enemy_Slime
+  m_Name: BlueSlime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -871,7 +871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e897ebda77f078349891de2ce068628c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy.Slime
-  EnemyData: {fileID: 11400000, guid: 0dbf62ad468c3b242866ac5dc6185d4b, type: 2}
+  EnemyData: {fileID: 11400000, guid: e9801ae0be30a1540b192a380684d1c9, type: 2}
   _target: {fileID: 0}
   Hp: 0
   _attackRange: 1
