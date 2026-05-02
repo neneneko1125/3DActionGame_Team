@@ -1,3 +1,4 @@
+using Player;
 using UnityEngine;
 
 namespace Enemy
@@ -7,6 +8,7 @@ namespace Enemy
         public EnemyData EnemyData;
 
         [Header("タ―ゲット")]
+        [HideInInspector]
         public GameObject _target;
 
         public float Hp;
@@ -25,6 +27,8 @@ namespace Enemy
         {
             if (!_registered)
                 EnemyManager.Instance.Register(this);
+
+            _target = PlayerCore.Instance.gameObject;
 
             Hp = EnemyData.MaxHp;
         }

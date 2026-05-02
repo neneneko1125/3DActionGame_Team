@@ -8,6 +8,7 @@ namespace Enemy
     {
         [Header("UŒ‚‚ğs‚¤Å’·‹——£")]
         [SerializeField] private float _attackRange;
+        [SerializeField] private AttackArea attackArea;
 
         private Animator _anim;
 
@@ -64,6 +65,9 @@ namespace Enemy
         {
             SetAnimation(_isIdling);
             yield return StartCoroutine(WaitForAnimation("IdleBattle"));
+
+            //UŒ‚ˆ—
+            attackArea.Attack(0.5f);
 
             _lookModule.OnTick();
             SetAnimation(_isAttacking);
@@ -131,10 +135,6 @@ namespace Enemy
                 _currentCoroutine = null;
                 _currentState = EnemyState.Damaged;
             }
-        }
-        private void OnCollisionStay(Collision collision)
-        {
-            //Debug.Log(collision.gameObject.name);
         }
     }
 }
