@@ -19,6 +19,21 @@ public class EnemyManager : MonoBehaviour
             Destroy(gameObject);
     }
 
+    public int GetEnemyNum(bool refresh = false)
+    {
+        if (refresh)
+        {
+            List<EnemyBase> list = new();
+            foreach(EnemyBase enemy in _enemies)
+            {
+                if (enemy)
+                    list.Add(enemy);
+            }
+            return list.Count;
+        }
+
+        return _enemies.Count;
+    }
     public void Register(EnemyBase enemy)
     {
         if (enemy && !_enemies.Contains(enemy))
