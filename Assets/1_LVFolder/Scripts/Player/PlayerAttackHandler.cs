@@ -23,7 +23,10 @@ public class PlayerAttackHandler : PlayerBase
 
         foreach(var h in hits)
         {
-            h.GetComponent<Slime>().ChangeHP(-finalDamage);
+            if (h.TryGetComponent<IDamaged>(out var target))
+            {
+                target.ChangeHP(-finalDamage);
+            }
         }
     }
 
