@@ -27,7 +27,12 @@ public class PlayerMovement : PlayerBase
             // 強めの重力
             Rb.AddForce(Vector3.down * Core.PlayerData.FallGravity, ForceMode.Acceleration);
         }
-        
+
+        // 今攻撃ステートが発動中ならreturnする
+        if (Anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
+        {
+            return;
+        }
         PerformMove();
     }
 
@@ -53,11 +58,11 @@ public class PlayerMovement : PlayerBase
             var targetRotation = Quaternion.LookRotation(_input.MoveDirection); //目標の回転
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Core.PlayerData.TurningSpeed);    //今の回転から目標の回転にゆっくり向かう
 
-            Anim.SetBool(AnimIsWalking, true);
+            Anim.SetBool(IsWalkingHash, true);
         }
         else
         {
-            Anim.SetBool(AnimIsWalking, false);
+            Anim.SetBool(IsWalkingHash, false);
         }
     }
 

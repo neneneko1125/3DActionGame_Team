@@ -91,8 +91,8 @@ public class PlayerHealth : PlayerBase, IDamaged
 
         StartCoroutine(FlashRoutine());
 
-        Anim.SetFloat(AnimStunRecoverySpeed, Core.PlayerData.StunRecoverySpeed);
-        Anim.SetTrigger(AnimStunTrigger);
+        Anim.SetFloat(StunRecoverySpeedHash, Core.PlayerData.StunRecoverySpeed);
+        Anim.SetTrigger(StunTriggerHash);
 
         // 1フレーム待ってからアニメーションの終了判定に入る
         yield return null;

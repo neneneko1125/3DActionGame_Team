@@ -1,6 +1,7 @@
 using Player;
 using Enemy;
 using UnityEngine;
+using System.Collections;
 
 public class PlayerAttackHandler : PlayerBase
 {
@@ -24,6 +25,26 @@ public class PlayerAttackHandler : PlayerBase
         {
             h.GetComponent<Slime>().ChangeHP(-finalDamage);
         }
+    }
+
+    public IEnumerator DashAttack(float dashMaxSpeed)
+    {
+        Vector3 dashDir = transform.forward;
+        float timer = 0;
+        float duration = Core.PlayerData.AttackDashDuration;
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+            float normalizedTime = timer / duration;
+
+            // 徐々に減速しながら進む
+            float currentSpeed = dashMaxSpeed * (1 - normalizedTime);
+            Rb.linearVelocity = new Vector3(dashDir.x * currentSpeed, Rb.linearVelocity.y, dashDir.z * currentSpeed);
+
+            yield return null;
+        }
+
+        Rb.linearVelocity = new Vector3(0, Rb.linearVelocity.y, 0);
     }
 
     private void OnDrawGizmosSelected()

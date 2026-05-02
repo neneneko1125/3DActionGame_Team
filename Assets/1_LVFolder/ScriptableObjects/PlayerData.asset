@@ -14,7 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
   MaxHp: 10
   AttackPower: 1
-  AttackSpeed: 1
+  AttackSpeed: 1.2
+  AttackDashDistance: 4
+  Attack2Speed: 1.2
+  Attack2DashDistance: 4
+  Attack3Speed: 1
+  Attack3DashDistance: 10
+  Attack4Speed: 1.2
+  Attack4DashDistance: 4
+  AttackDashDuration: 0.2
+  AttackComboTime: 0.6
   MoveSpeed: 2
   FallGravity: 25
   GroundGravity: 2
