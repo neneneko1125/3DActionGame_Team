@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Player
 {
     /// <summary>
-    /// プレイヤーが共通で使うコンポーネントの取得
+    /// プレイヤーが共通で使うコンポーネントやアニメーションのHash値を取得
     /// PlayerCoreコンポーネントも取得している
     /// </summary>
     public class PlayerBase : MonoBehaviour
@@ -33,6 +33,7 @@ namespace Player
         protected Animator Anim;
         protected PlayerInput PlayerInput;
         protected PlayerAttackHandler PlayerAttackHandler;
+        protected PlayerHealth PlayerHealth;
         protected PlayerCore Core;
 
         protected virtual void Awake()
@@ -41,6 +42,7 @@ namespace Player
             Anim = GetComponent<Animator>();
             PlayerInput = GetComponent<PlayerInput>();
             PlayerAttackHandler = GetComponent<PlayerAttackHandler>();
+            PlayerHealth = GetComponent<PlayerHealth>();
             Core = GetComponent<PlayerCore>();
         }
     }

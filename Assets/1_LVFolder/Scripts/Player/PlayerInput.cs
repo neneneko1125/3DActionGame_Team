@@ -51,7 +51,8 @@ public class PlayerInput : PlayerBase
 
         // カメラを基準にして、方向を決定する
         Vector3 cameraRight = Camera.main.transform.right;
-        Vector3 cameraForward = Camera.main.transform.forward;
+        //Vector3 cameraForward = Camera.main.transform.forward;
+        Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
         MoveDirection = (cameraRight * x + cameraForward * z).normalized;
     }
 
