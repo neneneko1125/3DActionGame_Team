@@ -7,13 +7,18 @@ namespace Enemy
     {
         public EnemyData EnemyData;
 
-        [Header("タ―ゲット")]
+        //[Header("タ―ゲット")]
         [HideInInspector]
         public GameObject _target;
 
+
+        [HideInInspector]
         public float Hp;
 
+        public EnemyState _currentState;
+
         private bool _registered;
+        private bool _generateEXP = true;
 
         protected virtual void Awake()
         {
@@ -37,8 +42,27 @@ namespace Enemy
         {
             _target = target;
         }
+        private void OnApplicationQuit()
+        {
+            _generateEXP = false;
+        }
         private void OnDestroy()
         {
+            if (!_generateEXP) return;
+            foreach (var de in EnemyData.DropEXP)
+            {
+                int amount = Random.Range(de.minAmount, de.maxAmount + 1);
+                for (int i = 0; i < amount; i++)
+                {
+                    Vector3 generatePos = transform.position;
+                    generatePos.x += Random.Range(-0.1f, 0.1f);
+                    generatePos.y += 0.5f;
+                    generatePos.z += Random.Range(-0.1f, 0.1f);
+
+                    Instantiate(de.exp, generatePos, Quaternion.identity);
+                }
+            }
+
             EnemyManager.Instance.UnRegister(this);
         }
     }

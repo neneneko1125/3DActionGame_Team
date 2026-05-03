@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AttackArea : MonoBehaviour
 {
-    [SerializeField] private float damage;
+    [SerializeField] private EnemyBase enemyBase;
     private Collider _col;
 
     private void Start()
@@ -19,6 +19,9 @@ public class AttackArea : MonoBehaviour
     private IEnumerator AttackCoroutine(float delay)
     {
         yield return new WaitForSeconds(delay);
+        if (enemyBase._currentState != EnemyState.Attack)
+            yield break;
+
         _col.enabled = true;
         yield return null;
         yield return null;
@@ -31,7 +34,7 @@ public class AttackArea : MonoBehaviour
         {
             if (other.TryGetComponent<IDamaged>(out var target))
             {
-                target.ChangeHP(-damage);
+                target.ChangeHP(-enemyBase.EnemyData.AttackPower);
             }
         }
     }
