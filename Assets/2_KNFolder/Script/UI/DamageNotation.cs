@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 namespace Enemy
 {
@@ -7,7 +8,7 @@ namespace Enemy
     {
         [SerializeField]
         private EnemyBase _enemyBase;
-        [SerializeField] private Text _damageText;
+        [SerializeField] private TextMeshPro _damageText;
         [SerializeField] private Vector3 _generatePos;
         private float _pastHp;
 
@@ -15,7 +16,7 @@ namespace Enemy
         {
             if (_pastHp > 0 && _pastHp != _enemyBase.Hp)
             {
-                Text text = Instantiate(_damageText.gameObject, transform.position + _generatePos, Quaternion.identity, transform).GetComponent<Text>();
+                TextMeshPro text = Instantiate(_damageText.gameObject, transform.position + _generatePos, Quaternion.identity, transform).GetComponent<TextMeshPro>();
                 text.text = (_pastHp - _enemyBase.Hp).ToString();
             }
             _pastHp = _enemyBase.Hp;

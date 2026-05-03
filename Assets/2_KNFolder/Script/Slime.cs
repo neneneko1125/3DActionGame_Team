@@ -137,7 +137,7 @@ namespace Enemy
         public void ChangeHP(float value)
         {
             Hp += value;
-            knockbackCounter = Mathf.Abs(value);
+            knockbackCounter = 1;
 
             if (value < 0)
             {

@@ -1,15 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class DamageText : MonoBehaviour
 {
-    private Text _text;
+    private TextMeshPro _text;
 
     private Vector3 _firstPos;
     private float _alpha = 1f;
     private void Start()
     {
-        _text = GetComponent<Text>();
+        _text = GetComponent<TextMeshPro>();
         _firstPos = transform.position;
     }
     void FixedUpdate()
