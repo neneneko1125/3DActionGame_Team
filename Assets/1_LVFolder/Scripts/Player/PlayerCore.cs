@@ -9,6 +9,8 @@ namespace Player
     /// </summary>
     public class PlayerCore : PlayerBase
     {
+        public int PlayerLevel = 1;
+
         public bool IsStunned;
         public bool IsInvicible;
         public bool IsDead;
@@ -27,6 +29,26 @@ namespace Player
                 Destroy(gameObject);
             }
             base.Awake();
+        }
+
+        private void Update()
+        {
+            DebugOfLevelUP();
+        }
+
+        private void DebugOfLevelUP()
+        {
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                Debug.Log("デバッグ機能　プレイヤーのレベルを1増やしました: " + PlayerLevel);
+                PlayerLevel++;
+                PlayerHealth.ChangeHP(1000);    //全回復
+            }
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                Debug.Log("デバッグ機能　プレイヤーのレベルを1減らしました: " + PlayerLevel);
+                PlayerLevel--;
+            }
         }
     }
 

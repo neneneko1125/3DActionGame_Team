@@ -5,8 +5,12 @@ public class PlayerData : ScriptableObject
 {
     [Header("最大HP")]
     public float MaxHp = 10.0f;
+    [Header("HPの増加量")]
+    public int HpBonusPerLevel = 5;
     [Header("攻撃力")]
     public float AttackPower = 1.0f;
+    [Header("攻撃力の増加量")]
+    public float AttackPowerBonusPerLevel = 1.0f;
     [Header("攻撃速度")]
     public float AttackSpeed = 3.0f;
     [Header("攻撃時の移動力")]

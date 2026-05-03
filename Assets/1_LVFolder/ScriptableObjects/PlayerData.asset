@@ -25,7 +25,7 @@ MonoBehaviour:
   AttackDashDuration: 0.2
   AttackComboTime: 0.6
   MoveSpeed: 2
-  FallGravity: 25
+  FallGravity: 40
   GroundGravity: 2
   TurningSpeed: 0.1
   StunRecoverySpeed: 1

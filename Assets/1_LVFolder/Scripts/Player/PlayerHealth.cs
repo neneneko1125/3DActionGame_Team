@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using Enemy;
 using Player;
+using TMPro;
 
 public class PlayerHealth : PlayerBase, IDamaged
 {
@@ -20,6 +21,7 @@ public class PlayerHealth : PlayerBase, IDamaged
 
     private float _currentHp;
 
+    private TextMeshProUGUI _hpText;
     private Image _hpBarGreen;
     private Image _hpBarRed;
    
@@ -39,14 +41,15 @@ public class PlayerHealth : PlayerBase, IDamaged
             Debug.LogError("SOデータがないです！");
             return;
         }
-
-        _currentHp = Core.PlayerData.MaxHp;
     }
 
     private void Start()
     {
+        _currentHp = Core.PlayerData.MaxHp + Core.PlayerData.HpBonusPerLevel * (Core.PlayerLevel - 1);    // 強化分も反映
+
         _hpBarGreen = UIManager.Instance.HPBarGreen;
         _hpBarRed = UIManager.Instance.HPBarRed;
+        _hpText = UIManager.Instance.PlayerHPText;
     }
 
     private void Update()
@@ -71,10 +74,10 @@ public class PlayerHealth : PlayerBase, IDamaged
             StartCoroutine(DamageSequence());
         }
 
-        if(_currentHp > Core.PlayerData.MaxHp)
+        if(_currentHp > Core.PlayerData.MaxHp + Core.PlayerData.HpBonusPerLevel * (Core.PlayerLevel - 1))
         {
             Debug.Log("現在のHPが最大HPを上回りました。調整します。");
-            _currentHp = Core.PlayerData.MaxHp;
+            _currentHp = Core.PlayerData.MaxHp + Core.PlayerData.HpBonusPerLevel * (Core.PlayerLevel - 1);
         }
 
         if (_currentHp <= 0)
@@ -144,11 +147,16 @@ public class PlayerHealth : PlayerBase, IDamaged
     {
         if(_hpBarGreen != null && _hpBarRed != null)
         {
-            float hpRatio = _currentHp / Core.PlayerData.MaxHp;
+            float hpRatio = _currentHp / (Core.PlayerData.MaxHp + Core.PlayerData.HpBonusPerLevel * (Core.PlayerLevel - 1));
 
             // 緑のバーが速く減って、赤のバーが遅く減る
             _hpBarGreen.fillAmount = Mathf.Lerp(_hpBarGreen.fillAmount, hpRatio, Time.deltaTime * _hpFillSpeedGreen);
             _hpBarRed.fillAmount = Mathf.Lerp(_hpBarRed.fillAmount, hpRatio, Time.deltaTime * _hpFillSpeedRed);
+        }
+
+        if(_hpText != null)
+        {
+            _hpText.text = _currentHp.ToString();
         }
     }
 

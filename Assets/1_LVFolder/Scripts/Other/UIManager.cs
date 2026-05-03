@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,6 +6,7 @@ public class UIManager : MonoBehaviour
 {
     public Image HPBarGreen;
     public Image HPBarRed;
+    public TextMeshProUGUI PlayerHPText;
 
     public static UIManager Instance {  get; private set; }
 

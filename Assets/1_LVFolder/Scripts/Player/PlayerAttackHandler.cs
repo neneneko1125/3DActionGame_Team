@@ -18,9 +18,10 @@ public class PlayerAttackHandler : PlayerBase
     // 引数によって、元々の攻撃力を基準として与えるダメージを変更することもできる
     public void OnHit(int powerPercent)
     {
-        float finalDamage = Mathf.RoundToInt(Core.PlayerData.AttackPower * (powerPercent / 100.0f));
-        Collider[] hits = Physics.OverlapSphere(_attackPoint.position, _attackRange, _enemyLayer);
+        float baseDamage = Mathf.RoundToInt(Core.PlayerData.AttackPower * (powerPercent / 100.0f));     // 攻撃の種類によって攻撃力を変化させる
+        float finalDamage = baseDamage + (Core.PlayerLevel - 1) * Core.PlayerData.AttackPowerBonusPerLevel;   // ゲーム中の強化を反映
 
+        Collider[] hits = Physics.OverlapSphere(_attackPoint.position, _attackRange, _enemyLayer);
         foreach(var h in hits)
         {
             if (h.TryGetComponent<IDamaged>(out var target))
@@ -32,9 +33,11 @@ public class PlayerAttackHandler : PlayerBase
 
     public IEnumerator DashAttack(float dashMaxSpeed)
     {
-        Vector3 dashDir = transform.forward;
+        Vector3 currentDir = transform.forward;
+        Vector3 dashDir = new Vector3(currentDir.x, 0, currentDir.z).normalized;    // Y成分を消す
+
+        float duration = Core.PlayerData.AttackDashDuration;    // ダッシュ時間
         float timer = 0;
-        float duration = Core.PlayerData.AttackDashDuration;
         while (timer < duration)
         {
             timer += Time.deltaTime;
@@ -47,7 +50,7 @@ public class PlayerAttackHandler : PlayerBase
             yield return null;
         }
 
-        Rb.linearVelocity = new Vector3(0, Rb.linearVelocity.y, 0);
+        Rb.linearVelocity = new Vector3(0, Rb.linearVelocity.y, 0);     //Y成分以外を0にする
     }
 
     private void OnDrawGizmosSelected()

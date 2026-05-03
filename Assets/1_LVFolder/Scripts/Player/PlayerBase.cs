@@ -36,6 +36,7 @@ namespace Player
         protected PlayerHealth PlayerHealth;
         protected PlayerCore Core;
 
+
         protected virtual void Awake()
         {
             Rb = GetComponent<Rigidbody>();
