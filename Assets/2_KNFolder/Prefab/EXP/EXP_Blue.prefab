@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 870879168631727518, guid: 089f706b528e03744b14c85c100adfef, type: 3}
+      propertyPath: Point
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2357084884859517999, guid: 089f706b528e03744b14c85c100adfef, type: 3}
       propertyPath: m_Name
       value: EXP_Blue

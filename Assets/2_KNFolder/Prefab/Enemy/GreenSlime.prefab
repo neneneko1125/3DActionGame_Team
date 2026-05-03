@@ -61,9 +61,21 @@ PrefabInstance:
       value: GreenSlime
       objectReference: {fileID: 0}
     - target: {fileID: 9086581704315987404, guid: de2e97b8a5c2a3840b452b27e1179f15, type: 3}
+      propertyPath: _exp
+      value: 
+      objectReference: {fileID: 1024912781624336688, guid: e08277e5be28f404cb387f4e77bb4904, type: 3}
+    - target: {fileID: 9086581704315987404, guid: de2e97b8a5c2a3840b452b27e1179f15, type: 3}
       propertyPath: EnemyData
       value: 
       objectReference: {fileID: 11400000, guid: 9377e501303b99649b2ef7ad5416162a, type: 2}
+    - target: {fileID: 9086581704315987404, guid: de2e97b8a5c2a3840b452b27e1179f15, type: 3}
+      propertyPath: maxAmount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9086581704315987404, guid: de2e97b8a5c2a3840b452b27e1179f15, type: 3}
+      propertyPath: minAmount
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
