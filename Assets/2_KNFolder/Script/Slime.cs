@@ -9,6 +9,10 @@ namespace Enemy
         [Header("çUåÇÇçsÇ§ç≈í∑ãóó£")]
         [SerializeField] private float _attackRange;
         [SerializeField] private AttackArea attackArea;
+        [Header("EXP")]
+        [SerializeField] private GameObject _exp;
+        [SerializeField] private int minAmount;
+        [SerializeField] private int maxAmount;
 
         private Animator _anim;
 
@@ -92,7 +96,20 @@ namespace Enemy
                 _currentState = EnemyState.Dead;
                 SetAnimation(_dead);
                 yield return StartCoroutine(WaitForAnimation("Die"));
-                Destroy(gameObject, 1.5f);
+                yield return new WaitForSeconds(1.5f);
+  
+
+                int amount = Random.Range(minAmount, maxAmount + 1);
+                for (int i = 0;i < amount; i++)
+                {
+                    Vector3 generatePos = transform.position;
+                    generatePos.x += Random.Range(-0.1f, 0.1f);
+                    generatePos.y += 0.5f;
+                    generatePos.z += Random.Range(-0.1f, 0.1f);
+
+                    Instantiate(_exp, generatePos, Quaternion.identity)/*.GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(-1f,1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)), ForceMode.Impulse)*/;
+                }
+                Destroy(gameObject);
             }
             else
             {

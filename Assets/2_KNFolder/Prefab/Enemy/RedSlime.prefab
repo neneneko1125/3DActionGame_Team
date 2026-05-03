@@ -50,7 +50,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5000436142546957334, guid: de2e97b8a5c2a3840b452b27e1179f15, type: 3}
       propertyPath: m_Name
-      value: E_SlimeBase
+      value: RedSlime
+      objectReference: {fileID: 0}
+    - target: {fileID: 9086581704315987404, guid: de2e97b8a5c2a3840b452b27e1179f15, type: 3}
+      propertyPath: _exp
+      value: 
+      objectReference: {fileID: 6348786386992627449, guid: 7b820cccd4d5cfa4f8333cbd7be6a1a5, type: 3}
+    - target: {fileID: 9086581704315987404, guid: de2e97b8a5c2a3840b452b27e1179f15, type: 3}
+      propertyPath: maxAmount
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9086581704315987404, guid: de2e97b8a5c2a3840b452b27e1179f15, type: 3}
+      propertyPath: minAmount
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
