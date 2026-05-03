@@ -31,7 +31,6 @@ public class AttackArea : MonoBehaviour
         {
             if (other.TryGetComponent<IDamaged>(out var target))
             {
-                Debug.Log("D");
                 target.ChangeHP(-damage);
             }
         }
