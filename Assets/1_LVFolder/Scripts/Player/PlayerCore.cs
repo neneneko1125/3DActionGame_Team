@@ -10,6 +10,8 @@ namespace Player
     public class PlayerCore : PlayerBase
     {
         public int PlayerLevel = 1;
+        public int PlayerEXP = 0;
+        public int NeedEXP = 10;
 
         public bool IsStunned;
         public bool IsInvicible;
@@ -20,7 +22,7 @@ namespace Player
 
         protected override void Awake()
         {
-            if(Instance == null)
+            if (Instance == null)
             {
                 Instance = this;
             }
@@ -36,36 +38,37 @@ namespace Player
             UpdateLevelUI();
         }
 
-        private void Update()
-        {
-            DebugOfLevelUP();
-        }
-
-        private void DebugOfLevelUP()
-        {
-            if (Input.GetKeyDown(KeyCode.O))
-            {
-                Debug.Log("デバッグ機能　プレイヤーのレベルを1増やしました: " + PlayerLevel);
-                PlayerLevel++;
-                PlayerHealth.ChangeHP(1000);    //全回復
-                UpdateLevelUI();
-            }
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                Debug.Log("デバッグ機能　プレイヤーのレベルを1減らしました: " + PlayerLevel);
-                PlayerLevel--;
-                PlayerHealth.ChangeHP(1);   //このメソッドで最大HPに抑え込んでくれる
-                UpdateLevelUI();
-            }
-        }
-
         private void UpdateLevelUI()
         {
             if (UIManager.Instance != null && UIManager.Instance.PlayerLevelText != null)
             {
                 UIManager.Instance.PlayerLevelText.text = PlayerLevel.ToString();
+                UIManager.Instance.EXPBarBlue.fillAmount = (float)PlayerEXP / (PlayerLevel * NeedEXP);
             }
         }
-    }
 
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            // そのオブジェクトが経験値か確認
+            if(collision.gameObject.TryGetComponent<EXP>(out var exp))
+            {
+                PlayerEXP += exp.Point;     //経験値増加
+                ChackLevelUp(); 
+                Destroy(collision.gameObject);
+            }
+        }
+
+        private void ChackLevelUp()
+        {
+            if(PlayerEXP >= PlayerLevel * NeedEXP)
+            {
+                PlayerLevel++;
+                PlayerHealth.ChangeHP(1000);
+                PlayerEXP -= PlayerLevel * NeedEXP;
+            }
+            UpdateLevelUI();
+        }
+
+    }
 }

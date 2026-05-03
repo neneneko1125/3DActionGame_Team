@@ -9,6 +9,8 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI PlayerHPText;
     public TextMeshProUGUI PlayerLevelText;
 
+    public Image EXPBarBlue;
+
     public static UIManager Instance {  get; private set; }
 
     private void Awake()
