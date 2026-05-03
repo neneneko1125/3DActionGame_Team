@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
     public Image HPBarGreen;
     public Image HPBarRed;
     public TextMeshProUGUI PlayerHPText;
+    public TextMeshProUGUI PlayerLevelText;
 
     public static UIManager Instance {  get; private set; }
 

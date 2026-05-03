@@ -31,6 +31,11 @@ namespace Player
             base.Awake();
         }
 
+        private void Start()
+        {
+            UpdateLevelUI();
+        }
+
         private void Update()
         {
             DebugOfLevelUP();
@@ -43,11 +48,22 @@ namespace Player
                 Debug.Log("デバッグ機能　プレイヤーのレベルを1増やしました: " + PlayerLevel);
                 PlayerLevel++;
                 PlayerHealth.ChangeHP(1000);    //全回復
+                UpdateLevelUI();
             }
             if (Input.GetKeyDown(KeyCode.I))
             {
                 Debug.Log("デバッグ機能　プレイヤーのレベルを1減らしました: " + PlayerLevel);
                 PlayerLevel--;
+                PlayerHealth.ChangeHP(1);   //このメソッドで最大HPに抑え込んでくれる
+                UpdateLevelUI();
+            }
+        }
+
+        private void UpdateLevelUI()
+        {
+            if (UIManager.Instance != null && UIManager.Instance.PlayerLevelText != null)
+            {
+                UIManager.Instance.PlayerLevelText.text = PlayerLevel.ToString();
             }
         }
     }
