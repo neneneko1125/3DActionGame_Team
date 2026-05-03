@@ -9,6 +9,15 @@ public class PlayerAttackHandler : PlayerBase
     [SerializeField] private Transform _attackPoint;
     [SerializeField] private LayerMask _enemyLayer;
 
+    [Header("カメラの振動関連")]
+    [SerializeField] private float duration;
+    [SerializeField] private float strength;
+    [SerializeField] private float vibrato;
+
+    [Header("エフェクト")]
+    [SerializeField] private GameObject _effectPrefab;
+    [SerializeField] private GameObject _effectPrefab2;
+
     protected override void Awake()
     {
         base.Awake();
@@ -27,6 +36,21 @@ public class PlayerAttackHandler : PlayerBase
             if (h.TryGetComponent<IDamaged>(out var target))
             {
                 target.ChangeHP(-finalDamage);
+                CameraManager.Instance.StartShake(duration, strength, vibrato);
+
+                int rnd = Random.Range(0, 2);
+                if(rnd == 0)
+                {
+                    SEManager.Instance.PlaySE_AttackHit();
+                    Instantiate(_effectPrefab, h.transform.position, Quaternion.identity);
+
+                }
+                else
+                {
+                    SEManager.Instance.PlaySE_AttackHit2();
+                    Instantiate(_effectPrefab2, h.transform.position, Quaternion.identity);
+
+                }
             }
         }
     }

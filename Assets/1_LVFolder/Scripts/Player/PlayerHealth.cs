@@ -71,6 +71,7 @@ public class PlayerHealth : PlayerBase, IDamaged
         if(value < 0)   //ダメージをくらったとき
         {
             CameraManager.Instance.StartShake(duration, strength, vibrato);
+            SEManager.Instance.PlaySE_Damage();
             StartCoroutine(DamageSequence());
         }
 
