@@ -1183,6 +1183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShieldText
   enemyBase: {fileID: 9086581704315987404}
+  image: {fileID: 163661885945675197}
   text: {fileID: 2315427349741063526}
 --- !u!1 &7674792950644674676
 GameObject:

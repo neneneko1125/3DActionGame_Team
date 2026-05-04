@@ -1,22 +1,28 @@
 using Enemy;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class ShieldText : MonoBehaviour
 {
     [SerializeField] private EnemyBase enemyBase;
 
+    [SerializeField] private Image image;
     [SerializeField] private TextMeshPro text;
     private void Update()
     {
+        Debug.Log(enemyBase.Shield);
+
         if (enemyBase.Shield > 0)
         {
-            gameObject.SetActive(true);
+            image.enabled = true;
+            text.enabled = true;
             text.text = enemyBase.Shield.ToString();
         }
         else
         {
-            gameObject.SetActive(false);
+            image.enabled = false;
+            text.enabled = false;
         }
     }
 }

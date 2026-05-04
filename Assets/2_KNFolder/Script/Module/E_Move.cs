@@ -27,7 +27,10 @@ namespace Enemy
 
         public override void OnTick()
         {
-            if (!_target) return;
+            if (!_target)
+            {
+                _target = GetComponent<EnemyBase>()._target;
+            }
 
             _agent.SetDestination(_target.transform.position);
         }
