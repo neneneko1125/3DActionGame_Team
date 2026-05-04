@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: RedSlimeData
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
   MaxHp: 3
+  DefaultShield: 0
   AttackPower: 1
   DropEXP:
   - exp: {fileID: 8410644237635118920, guid: 7b820cccd4d5cfa4f8333cbd7be6a1a5, type: 3}

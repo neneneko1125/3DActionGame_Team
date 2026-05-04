@@ -88,6 +88,7 @@ namespace Enemy
             if (Hp <= 0)
             {
                 _currentState = EnemyState.Dead;
+                GetComponent<Collider>().enabled = false;
                 SetAnimation(_dead);
                 yield return StartCoroutine(WaitForAnimation("Die"));
                 yield return new WaitForSeconds(1.5f);
@@ -140,8 +141,17 @@ namespace Enemy
         }
         public void ChangeHP(float value)
         {
-            Hp += value;
-            knockbackCounter = 1;
+            Shield += value;
+            if (Shield <= 0)
+            {
+                Hp += Shield;
+                Shield = 0;
+                knockbackCounter = 1;
+            }
+            else
+            {
+                return;
+            }
 
             if (value < 0)
             {

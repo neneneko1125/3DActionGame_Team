@@ -5,6 +5,8 @@ public class EnemyData : ScriptableObject
 {
     [Header("最大HP")]
     public float MaxHp = 1;
+    [Header("初期シールド")]
+    public float DefaultShield;
     [Header("攻撃力")]
     public float AttackPower = 1;
     [Header("ドロップ経験値")]

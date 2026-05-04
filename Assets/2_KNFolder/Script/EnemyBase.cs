@@ -14,6 +14,8 @@ namespace Enemy
 
         [HideInInspector]
         public float Hp;
+        [HideInInspector]
+        public float Shield;
 
         public EnemyState _currentState;
 
@@ -36,6 +38,7 @@ namespace Enemy
             _target = PlayerCore.Instance.gameObject;
 
             Hp = EnemyData.MaxHp;
+            Shield = EnemyData.DefaultShield;
         }
 
         public void SetTarget(GameObject target)
