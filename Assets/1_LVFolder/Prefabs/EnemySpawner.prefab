@@ -47,3 +47,6 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 3530350126984365200, guid: 90e688c087288094d8868d267f99066e, type: 3}
   _enemyPrefab2: {fileID: 6774265551569010788, guid: cde2734ed8fc85d43b8507400261f8b2, type: 3}
   _enemyPrefab3: {fileID: 3437419489547636458, guid: 2f9eb76729f852d46a88c9702ad677f8, type: 3}
+  _phase1Point: 1
+  _phase2Point: 2
+  _phase3Point: 5

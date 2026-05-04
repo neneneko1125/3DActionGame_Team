@@ -8,7 +8,9 @@ public class PlayerInput : PlayerBase
     private int _attackCount = 0;
     private float _comboTimer = 0.0f;
 
-    public Vector3 MoveDirection {  get; private set; }
+    public Vector3 MoveDirection { get; private set; }
+
+    public int AttackCount => _attackCount;
 
     protected override void Awake()
     {
@@ -27,16 +29,23 @@ public class PlayerInput : PlayerBase
 
         if (Input.GetMouseButtonDown(0))
         {
-            InputAttack();
+            if (Input.GetKey(KeyCode.LeftShift) && Core.PermissionSpecialAttack)
+            {
+                StartCoroutine(InputSpecialAttack());
+            }
+            else
+            {
+                InputAttack();
+            }
         }
 
         // コンボ継続中なら
-        if(_attackCount > 0)
+        if (_attackCount > 0)
         {
-            _comboTimer += Time.deltaTime;      //タイマーで時間切れを計る
+            _comboTimer += Time.deltaTime;
 
             // 時間切れでコンボ終了
-            if(_comboTimer >= Core.PlayerData.AttackComboTime)
+            if (_comboTimer >= Core.PlayerData.AttackComboTime)
             {
                 _attackCount = 0;
                 _comboTimer = 0.0f;
@@ -49,70 +58,85 @@ public class PlayerInput : PlayerBase
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
 
-        // カメラを基準にして、方向を決定する
         Vector3 cameraRight = Camera.main.transform.right;
-        //Vector3 cameraForward = Camera.main.transform.forward;
         Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
         MoveDirection = (cameraRight * x + cameraForward * z).normalized;
     }
 
     private void InputAttack()
     {
-        if (_attackCount == 0)  // 通常攻撃
+        // 構造体ごと TryAttack に渡すように変更
+        if (_attackCount == 0)
         {
-            TryAttack(AttackSpeedHash, Core.PlayerData.AttackSpeed, AttackTriggerHash);
+            TryAttack(AttackSpeedHash, Core.PlayerData.Attack1, AttackTriggerHash);
         }
-        else if (_attackCount == 1) //斬り上げ攻撃
+        else if (_attackCount == 1)
         {
-            TryAttack( Attack2SpeedHash, Core.PlayerData.Attack2Speed, Attack2TriggerHash);
+            TryAttack(Attack2SpeedHash, Core.PlayerData.Attack2, Attack2TriggerHash);
         }
-        else if (_attackCount == 2) //つき攻撃
+        else if (_attackCount == 2)
         {
-            TryAttack(Attack3SpeedHash, Core.PlayerData.Attack3Speed, Attack3TriggerHash);
+            TryAttack(Attack3SpeedHash, Core.PlayerData.Attack3, Attack3TriggerHash);
         }
-        else if (_attackCount == 3) //回転攻撃
+        else if (_attackCount == 3)
         {
-            TryAttack(Attack4SpeedHash, Core.PlayerData.Attack4Speed, Attack4TriggerHash);
+            TryAttack(Attack4SpeedHash, Core.PlayerData.Attack4, Attack4TriggerHash);
         }
     }
 
-    private void TryAttack(int speedHash, float speedValue, int triggerHash)
+    private IEnumerator InputSpecialAttack()
     {
-        // 今攻撃ステートが発動中ならreturnする
+        // ゲージリセット
+        Core.PermissionSpecialAttack = false;
+        Core.SpecialGage = 0;   
+        Core.UpdateUI();
+
+        // スペシャル攻撃も構造体を参照
+        Anim.SetFloat(AttackSPSpeedHash, Core.PlayerData.AttackSP.Speed);
+        Anim.SetTrigger(AttackSPTriggerHash);
+
+        yield return new WaitForSeconds(0.5f);
+
+        StartCoroutine(PlayerAttackHandler.DashAttack(Core.PlayerData.AttackSP.DashDistance));
+    }
+
+    private void TryAttack(int speedHash, PlayerData.AttackParam param, int triggerHash)
+    {
         if (Anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
         {
             return;
         }
 
+        // ダッシュ距離を構造体から取得
+        StartCoroutine(PlayerAttackHandler.DashAttack(param.DashDistance));
+
         if (_attackCount == 0)
         {
             _attackCount++;
-            StartCoroutine(PlayerAttackHandler.DashAttack(Core.PlayerData.AttackDashDistance));
             SEManager.Instance.PlaySE_Attack1_2();
         }
         else if (_attackCount == 1)
         {
             _attackCount++;
-            StartCoroutine(PlayerAttackHandler.DashAttack(Core.PlayerData.Attack2DashDistance));
             SEManager.Instance.PlaySE_Attack1_2();
         }
-        else if(_attackCount == 2)
+        else if (_attackCount == 2)
         {
             _attackCount++;
-            StartCoroutine(PlayerAttackHandler.DashAttack(Core.PlayerData.Attack3DashDistance));
             SEManager.Instance.PlaySE_Attack3();
         }
         else
         {
             _attackCount = 0;
-            StartCoroutine(PlayerAttackHandler.DashAttack(Core.PlayerData.Attack4DashDistance));
             SEManager.Instance.PlaySE_Attack3();
         }
 
-        Anim.SetFloat(speedHash, speedValue);
+        // アニメーション速度も構造体から取得
+        Anim.SetFloat(speedHash, param.Speed);
         Anim.SetTrigger(triggerHash);
 
         _comboTimer = 0;
     }
 
+   
 }

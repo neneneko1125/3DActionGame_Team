@@ -12,10 +12,13 @@ namespace Player
         public int PlayerLevel = 1;
         public int PlayerEXP = 0;
         public int NeedEXP = 10;
+        public int SpecialGage = 0;
+        
 
         public bool IsStunned;
         public bool IsInvicible;
         public bool IsDead;
+        public bool PermissionSpecialAttack = false;
 
         public static PlayerCore Instance { get; private set; }
         public PlayerData PlayerData;
@@ -35,15 +38,16 @@ namespace Player
 
         private void Start()
         {
-            UpdateLevelUI();
+            UpdateUI();
         }
 
-        private void UpdateLevelUI()
+        public void UpdateUI()
         {
             if (UIManager.Instance != null && UIManager.Instance.PlayerLevelText != null)
             {
                 UIManager.Instance.PlayerLevelText.text = PlayerLevel.ToString();
                 UIManager.Instance.EXPBarBlue.fillAmount = (float)PlayerEXP / (PlayerLevel * NeedEXP);
+                UIManager.Instance.SpecalBar.fillAmount = (float)SpecialGage / PlayerData.MaxSpecialGage;
             }
         }
 
@@ -67,7 +71,7 @@ namespace Player
                 PlayerHealth.ChangeHP(1000);
                 PlayerEXP -= PlayerLevel * NeedEXP;
             }
-            UpdateLevelUI();
+            UpdateUI();
         }
 
     }

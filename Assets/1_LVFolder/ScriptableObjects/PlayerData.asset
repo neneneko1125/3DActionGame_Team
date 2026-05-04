@@ -12,21 +12,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 282ab201162ce914fb4d455558066304, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
-  MaxHp: 10
+  MaxHp: 15
+  HpBonusPerLevel: 5
   AttackPower: 1
-  AttackSpeed: 1.2
-  AttackDashDistance: 6
-  Attack2Speed: 1.2
-  Attack2DashDistance: 6
-  Attack3Speed: 1
-  Attack3DashDistance: 15
-  Attack4Speed: 1.2
-  Attack4DashDistance: 4
+  AttackPowerBonusPerLevel: 1
+  Attack1:
+    Speed: 1.2
+    Range: 0.7
+    DashDistance: 3
+  Attack2:
+    Speed: 1.2
+    Range: 0.7
+    DashDistance: 3
+  Attack3:
+    Speed: 1
+    Range: 1
+    DashDistance: 15
+  Attack4:
+    Speed: 1
+    Range: 1.5
+    DashDistance: 3
+  AttackSP:
+    Speed: 3
+    Range: 2
+    DashDistance: 5
+  MaxSpecialGage: 30
   AttackDashDuration: 0.2
   AttackComboTime: 0.6
-  MoveSpeed: 2
-  FallGravity: 40
-  GroundGravity: 2
-  TurningSpeed: 0.1
   StunRecoverySpeed: 1
   InvincibleDuration: 1
+  MoveSpeed: 2.5
+  TurningSpeed: 0.1
+  FallGravity: 40
+  GroundGravity: 2

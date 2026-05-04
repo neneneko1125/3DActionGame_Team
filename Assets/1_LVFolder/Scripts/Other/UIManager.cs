@@ -11,6 +11,8 @@ public class UIManager : MonoBehaviour
 
     public Image EXPBarBlue;
 
+    public Image SpecalBar;
+
     public static UIManager Instance {  get; private set; }
 
     private void Awake()
