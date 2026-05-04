@@ -68,7 +68,7 @@ namespace Enemy
             yield return StartCoroutine(WaitForAnimation("IdleBattle"));
 
             //UŒ‚ˆ—
-            attackArea.Attack(0.5f);
+            attackArea.Attack(0.25f);
 
             _lookModule.OnTick();
             SetAnimation(_isAttacking);
