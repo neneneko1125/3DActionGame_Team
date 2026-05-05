@@ -18,8 +18,8 @@ namespace Player
         protected static readonly int Attack3SpeedHash = Animator.StringToHash("Attack3Speed");
         protected static readonly int Attack4TriggerHash = Animator.StringToHash("Attack4");
         protected static readonly int Attack4SpeedHash = Animator.StringToHash("Attack4Speed");
-        protected static readonly int AttackSPTriggerHash = Animator.StringToHash("AttackSP");
-        protected static readonly int AttackSPSpeedHash = Animator.StringToHash("AttackSPSpeed");
+        protected static readonly int AttackSpecialTriggerHash = Animator.StringToHash("AttackSP");
+        protected static readonly int AttackSpecialSpeedHash = Animator.StringToHash("AttackSPSpeed");
 
         protected static readonly int StunTriggerHash = Animator.StringToHash("Stun");
         protected static readonly int StunRecoverySpeedHash = Animator.StringToHash("StunRecoverySpeed");
@@ -29,7 +29,7 @@ namespace Player
         protected const string Attack2StateName = "Player_Attack2";
         protected const string Attack3StateName = "Player_Attack3";
         protected const string Attack4StateName = "Player_Attack4";
-        protected const string AttackSPStateName = "Player_AttackSP";
+        protected const string AttackSpecialStateName = "Player_AttackSP";
         protected const string StunStateName = "Player_Stun";
 
         protected Rigidbody Rb;

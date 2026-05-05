@@ -43,14 +43,13 @@ namespace Player
 
         public void UpdateUI()
         {
-            if (UIManager.Instance != null && UIManager.Instance.PlayerLevelText != null)
+            if (UIManager.Instance != null && UIManager.Instance.LevelText != null)
             {
-                UIManager.Instance.PlayerLevelText.text = PlayerLevel.ToString();
+                UIManager.Instance.LevelText.text = PlayerLevel.ToString();
                 UIManager.Instance.EXPBarBlue.fillAmount = (float)PlayerEXP / (PlayerLevel * NeedEXP);
                 UIManager.Instance.SpecalBar.fillAmount = (float)SpecialGage / PlayerData.MaxSpecialGage;
             }
         }
-
 
         private void OnCollisionEnter(Collision collision)
         {
@@ -68,7 +67,7 @@ namespace Player
             if(PlayerEXP >= PlayerLevel * NeedEXP)
             {
                 PlayerLevel++;
-                PlayerHealth.ChangeHP(1000);
+                PlayerHealth.ChangeHP(1000);    // 1000回復する　(全回復)
                 PlayerEXP -= PlayerLevel * NeedEXP;
             }
             UpdateUI();

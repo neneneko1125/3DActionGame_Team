@@ -1178,6 +1178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18746a00a5677664fb79d362fd413485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInput
+  AttackCount: 0
 --- !u!114 &4755664023737116762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1190,7 +1191,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3af4d7c6f1d7874baeb986e351e3de1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttackHandler
-  _attackRange: 1
   _attackPoint: {fileID: 2931393301269712410}
   _enemyLayer:
     serializedVersion: 2
@@ -1199,8 +1199,7 @@ MonoBehaviour:
   strength: 0.01
   vibrato: 0.2
   _effectPrefab: {fileID: 6980259576133684760, guid: 46b01b40211160243b771ca2aaaf1d3a, type: 3}
-  _effectPrefab2: {fileID: 8078720523478869859, guid: 08644f28dfa1588438899470be16769e, type: 3}
-  _effectPrefabSP: {fileID: 8078720523478869859, guid: 8d4d32bfe69cc494f8b91821c0d3cdd0, type: 3}
+  _effectPrefabSpecial: {fileID: 8078720523478869859, guid: 8d4d32bfe69cc494f8b91821c0d3cdd0, type: 3}
 --- !u!114 &6265603875206352030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1216,9 +1215,12 @@ MonoBehaviour:
   PlayerLevel: 1
   PlayerEXP: 0
   NeedEXP: 50
+  SpecialGage: 0
   IsStunned: 0
   IsInvicible: 0
   IsDead: 0
+  IsAttacking: 0
+  PermissionSpecialAttack: 0
   PlayerData: {fileID: 11400000, guid: a549edd81e17e0d4bb4a323b0d327e2d, type: 2}
 --- !u!95 &8442458181626691191
 Animator:

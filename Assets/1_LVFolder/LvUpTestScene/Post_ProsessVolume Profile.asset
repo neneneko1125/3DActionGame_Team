@@ -15,7 +15,7 @@ MonoBehaviour:
   active: 1
   color:
     m_OverrideState: 1
-    m_Value: {r: 0.22264141, g: 0.07519397, b: 0.07519397, a: 1}
+    m_Value: {r: 0.19999999, g: 0.14150943, b: 0.14150943, a: 1}
   center:
     m_OverrideState: 1
     m_Value: {x: 0.5, y: 0.31}

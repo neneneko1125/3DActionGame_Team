@@ -3,41 +3,48 @@ using Player;
 using System.Collections;
 using UnityEngine;
 
-public class PlayerAttackHandler : PlayerBase
+namespace Player
 {
-    [SerializeField] private Transform _attackPoint;
-    [SerializeField] private LayerMask _enemyLayer;
-
-    [Header("カメラの振動関連")]
-    [SerializeField] private float duration;
-    [SerializeField] private float strength;
-    [SerializeField] private float vibrato;
-
-    [Header("エフェクト")]
-    [SerializeField] private GameObject _effectPrefab;
-    [SerializeField] private GameObject _effectPrefab2;
-    [SerializeField] private GameObject _effectPrefabSP;
-
-    protected override void Awake()
+    public class PlayerAttackHandler : PlayerBase
     {
-        base.Awake();
-    }
+        [SerializeField] private Transform _attackPoint;
+        [SerializeField] private LayerMask _enemyLayer;
 
-    // アニメーションのイベントから呼び出される
-    // 引数によって、元々の攻撃力を基準として与えるダメージを変更することもできる
-    public void OnHit(int powerPercent)
-    {
-        PlayerData.AttackParam currentParam;
+        [Header("カメラの振動関連")]
+        [SerializeField] private float duration;
+        [SerializeField] private float strength;
+        [SerializeField] private float vibrato;
 
-        if (powerPercent >= 500)    //スペシャル攻撃
+        [Header("エフェクト")]
+        [SerializeField] private GameObject _effectPrefab;
+        [SerializeField] private GameObject _effectPrefabSpecial;
+
+        protected override void Awake()
         {
-            currentParam = Core.PlayerData.AttackSP;
+            base.Awake();
         }
-        else
+
+        // アニメーションのイベントから呼び出される
+        // 引数によって、元々の攻撃力を基準として与えるダメージを変更することもできる
+        public void OnHit(int powerPercent)
         {
-            // 2. 通常コンボの判定
-            int comboIndex = GetComponent<PlayerInput>().AttackCount;
-            switch (comboIndex)
+            // 現在の攻撃パラメータを取得
+            PlayerData.AttackParam currentParam = GetCurrentAttackParam(powerPercent);
+
+            // 攻撃判定を行い、当たった敵を処理する
+            PerformAttackDetection(currentParam.Range, powerPercent);
+        }
+
+        private PlayerData.AttackParam GetCurrentAttackParam(int powerPercent)
+        {
+            if(powerPercent >= Core.PlayerData.SpecialAttackThreshold)    // SP攻撃
+            {
+                return Core.PlayerData.AttackSpecial;
+            }
+
+            PlayerData.AttackParam currentParam;
+            
+            switch (PlayerInput.AttackCount)    // 通常攻撃なら現在のコンボ数を見る
             {
                 case 1: currentParam = Core.PlayerData.Attack1; break;
                 case 2: currentParam = Core.PlayerData.Attack2; break;
@@ -45,76 +52,103 @@ public class PlayerAttackHandler : PlayerBase
                 case 0: currentParam = Core.PlayerData.Attack4; break;
                 default: currentParam = Core.PlayerData.Attack1; break;
             }
+            return currentParam;
         }
 
-        float currentRange = currentParam.Range;
-
-        float baseDamage = Mathf.RoundToInt(Core.PlayerData.AttackPower * (powerPercent / 100.0f));
-        float finalDamage = baseDamage + (Core.PlayerLevel - 1) * Core.PlayerData.AttackPowerBonusPerLevel;
-
-        Collider[] hits = Physics.OverlapSphere(_attackPoint.position, currentRange, _enemyLayer);
-
-        foreach (var h in hits)
-        {
-            if (h.TryGetComponent<IDamaged>(out var target))
-            {
-                target.ChangeHP(-finalDamage);
-                CameraManager.Instance.StartShake(duration, strength, vibrato);
-
-                if (powerPercent >= 500)    //スペシャル攻撃
+        private void PerformAttackDetection(float range, int powerPercent)
+        {   
+            // 攻撃判定を出す
+            Collider[] hits = Physics.OverlapSphere(_attackPoint.position, range, _enemyLayer);
+            foreach (var h in hits)
+            { 
+                if(h.TryGetComponent<IDamaged>(out var target))
                 {
-                    SEManager.Instance.PlaySE_AttackHit();
-                    Instantiate(_effectPrefabSP, h.transform.position, Quaternion.identity);
+                    Hit(target, h.transform.position, powerPercent);    // 当たったときの処理へ
                 }
+            }
+        }
 
+        private void Hit(IDamaged target, Vector3 hitPosition, int powerPercent)
+        {
+            // ダメージを計算して、敵のHPを操作
+            float damage = CalculateFinalDamage(powerPercent);
+            target.ChangeHP(-damage);
+
+            // CameraManager.Instance.StartShake(duration, strength, vibrato);
+            PlayHitEffects(hitPosition, powerPercent);
+
+            // ゲージ管理
+            HandleSpecialGage();
+        }
+
+        private float CalculateFinalDamage(int powerPercent)
+        {
+            // 攻撃の種類ごとの倍率を反映
+            float baseDamage = Mathf.RoundToInt(Core.PlayerData.AttackPower * (powerPercent / 100));
+
+            // レベルによる攻撃力の上昇を反映
+            return baseDamage + (Core.PlayerLevel - 1) * Core.PlayerData.AttackPowerBonusPerLevel;      
+        }
+
+        private void PlayHitEffects(Vector3 hitPosition, int powerPercent)
+        {
+            // SP攻撃の場合、SEとエフェクトは固定
+            if (powerPercent >= Core.PlayerData.SpecialAttackThreshold)
+            {
+                SEManager.Instance.PlaySE_AttackHit();
+                Instantiate(_effectPrefabSpecial, hitPosition, Quaternion.identity);
+            }
+            else
+            {
+                // 通常攻撃の場合、SEをランダムにする
                 int rnd = Random.Range(0, 2);
                 if (rnd == 0)
                 {
                     SEManager.Instance.PlaySE_AttackHit();
-                    Instantiate(_effectPrefab, h.transform.position, Quaternion.identity);
 
                 }
                 else
                 {
                     SEManager.Instance.PlaySE_AttackHit2();
-                    Instantiate(_effectPrefab2, h.transform.position, Quaternion.identity);
-
                 }
 
-                if (Core.SpecialGage >= Core.PlayerData.MaxSpecialGage)
-                {
-                    Core.PermissionSpecialAttack = true;
-                }
-                else
-                {
-                    Core.SpecialGage++;
-                    Core.UpdateUI();
-                }
-                
+                Instantiate(_effectPrefab, hitPosition, Quaternion.identity);  // エフェクト
             }
         }
-    }
 
-    public IEnumerator DashAttack(float dashMaxSpeed)
-    {
-        Vector3 currentDir = transform.forward;
-        Vector3 dashDir = new Vector3(currentDir.x, 0, currentDir.z).normalized;    // Y成分を消す
-
-        float duration = Core.PlayerData.AttackDashDuration;    // ダッシュ時間
-        float timer = 0;
-        while (timer < duration)
+        private void HandleSpecialGage()
         {
-            timer += Time.deltaTime;
-            float normalizedTime = timer / duration;
+            Core.SpecialGage++;
 
-            // 徐々に減速しながら進む
-            float currentSpeed = dashMaxSpeed * (1 - normalizedTime);
-            Rb.linearVelocity = new Vector3(dashDir.x * currentSpeed, Rb.linearVelocity.y, dashDir.z * currentSpeed);
+            // ゲージがたまっていれば
+            if (Core.SpecialGage >= Core.PlayerData.MaxSpecialGage)
+            {
+                Core.PermissionSpecialAttack = true;    // SP攻撃を許可
+            }
 
-            yield return null;
+            Core.UpdateUI();
         }
 
-        Rb.linearVelocity = new Vector3(0, Rb.linearVelocity.y, 0);     //Y成分以外を0にする
-    }
+        // 攻撃時に一瞬前にダッシュする
+        public IEnumerator StepForward(float dashMaxSpeed)
+        {
+            Vector3 currentDir = transform.forward;
+            Vector3 dashDir = new Vector3(currentDir.x, 0, currentDir.z).normalized;    // Y成分を消す
 
+            float duration = Core.PlayerData.AttackDashDuration;    // ダッシュ時間
+            float timer = 0;
+            while (timer < duration)
+            {
+                timer += Time.deltaTime;
+                float normalizedTime = timer / duration;
+
+                // 徐々に減速しながら進む
+                float currentSpeed = dashMaxSpeed * (1 - normalizedTime);
+                Rb.linearVelocity = new Vector3(dashDir.x * currentSpeed, Rb.linearVelocity.y, dashDir.z * currentSpeed);
+
+                yield return null;
+            }
+            Rb.linearVelocity = new Vector3(0, Rb.linearVelocity.y, 0);     //Y成分以外を0にする
+        }
+    }
 }
