@@ -20,7 +20,7 @@ public class EXP : MonoBehaviour
         {
             if (vec.magnitude <= 2)
             {
-                rb.linearVelocity = vec.normalized * time;
+                rb.linearVelocity = vec.normalized * time * time;
                 time += Time.fixedDeltaTime;
             }
         }

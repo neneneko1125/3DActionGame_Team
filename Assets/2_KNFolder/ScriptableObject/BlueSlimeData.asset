@@ -17,8 +17,8 @@ MonoBehaviour:
   AttackPower: 2
   DropEXP:
   - exp: {fileID: 8410644237635118920, guid: 7b820cccd4d5cfa4f8333cbd7be6a1a5, type: 3}
-    minAmount: 5
-    maxAmount: 7
+    minAmount: 0
+    maxAmount: 0
   - exp: {fileID: 5051536832370343032, guid: e94da3507c354ad4e92299ddd108fa95, type: 3}
     minAmount: 2
-    maxAmount: 3
+    maxAmount: 4

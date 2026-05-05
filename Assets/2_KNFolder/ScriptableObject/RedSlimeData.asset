@@ -18,4 +18,4 @@ MonoBehaviour:
   DropEXP:
   - exp: {fileID: 8410644237635118920, guid: 7b820cccd4d5cfa4f8333cbd7be6a1a5, type: 3}
     minAmount: 2
-    maxAmount: 5
+    maxAmount: 4
