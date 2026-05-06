@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4237495889456858876}
+  - component: {fileID: 114059390102727525}
   - component: {fileID: 1914563029973103968}
   - component: {fileID: 6576571843024926285}
   - component: {fileID: 3095402161418038422}
@@ -36,6 +37,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -157.617, z: 0}
+--- !u!114 &114059390102727525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489654996964841572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d65948fe722d0b48bac755218564289, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraWallFader
+  _wallLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  _fadeAlpha: 0.3
 --- !u!114 &1914563029973103968
 MonoBehaviour:
   m_ObjectHideFlags: 0

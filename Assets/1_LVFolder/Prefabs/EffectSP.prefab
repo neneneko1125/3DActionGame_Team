@@ -14691,6 +14691,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7541750129371384559}
+  - component: {fileID: -6520730001162445466}
   - component: {fileID: -6140058637718067864}
   - component: {fileID: -3089404240273355523}
   m_Layer: 0
@@ -14719,6 +14720,19 @@ Transform:
   - {fileID: 5897982907293190697}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-6520730001162445466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8078720523478869859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9812fe8dd7e949479ceea0706272ce8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DestroyObject
+  _lifeTime: 2
 --- !u!198 &-6140058637718067864
 ParticleSystem:
   m_ObjectHideFlags: 0
