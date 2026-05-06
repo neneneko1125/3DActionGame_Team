@@ -23,7 +23,7 @@ namespace Enemy
         private static readonly int _isIdling = Animator.StringToHash("isIdling");
         private static readonly int _isAttacking = Animator.StringToHash("isAttacking");
         private static readonly int _isDamaged = Animator.StringToHash("isDamaged");
-        private static readonly int _dead = Animator.StringToHash("dead");
+        private static readonly int _isDead = Animator.StringToHash("isDead");
 
         protected override void Start()
         {
@@ -89,7 +89,7 @@ namespace Enemy
             {
                 _currentState = EnemyState.Dead;
                 GetComponent<Collider>().enabled = false;
-                SetAnimation(_dead);
+                SetAnimation(_isDead);
                 yield return StartCoroutine(WaitForAnimation("Die"));
                 yield return new WaitForSeconds(1.5f);
   
@@ -134,7 +134,7 @@ namespace Enemy
             _anim.SetBool(_isAttacking, activeParam == _isAttacking);
             if (activeParam == _isDamaged)
                 _anim.SetTrigger("isDamaged");
-            if (activeParam == _dead)
+            if (activeParam == _isDead)
                 _anim.SetTrigger("dead");
             //_anim.SetBool(_isDamaged, activeParam == _isDamaged);
             //_anim.SetBool(_dead, activeParam == _dead);

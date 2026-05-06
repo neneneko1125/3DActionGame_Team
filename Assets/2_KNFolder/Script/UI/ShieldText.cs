@@ -11,8 +11,6 @@ public class ShieldText : MonoBehaviour
     [SerializeField] private TextMeshPro text;
     private void Update()
     {
-        Debug.Log(enemyBase.Shield);
-
         if (enemyBase.Shield > 0)
         {
             image.enabled = true;

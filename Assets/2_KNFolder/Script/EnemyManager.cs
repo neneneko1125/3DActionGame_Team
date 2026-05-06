@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Enemy;
+using Unity.VisualScripting;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -17,6 +18,17 @@ public class EnemyManager : MonoBehaviour
         }
         else
             Destroy(gameObject);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            foreach (var enemy in _enemies)
+            {
+                enemy.GetComponent<IDamaged>().ChangeHP(-100);
+            }
+        }
     }
 
     public int GetEnemyNum(bool refresh = false)

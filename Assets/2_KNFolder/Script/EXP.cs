@@ -12,6 +12,7 @@ public class EXP : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        Destroy(gameObject, 10f);
     }
     private void FixedUpdate()
     {
