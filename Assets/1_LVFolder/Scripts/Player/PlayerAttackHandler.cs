@@ -98,7 +98,7 @@ namespace Player
             // SP攻撃の場合、SEとエフェクトは固定
             if (powerPercent >= Core.PlayerData.SpecialAttackThreshold)
             {
-                SEManager.Instance.PlaySE_AttackHit();
+                SEManager.Instance.PlaySE_AttackHitSP();
                 Instantiate(_effectPrefabSpecial, hitPosition, Quaternion.identity);
             }
             else

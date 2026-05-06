@@ -13,12 +13,12 @@ public class UIManager : MonoBehaviour
 
     [Header("スペシャルゲージ関連")]
     public Image SpecalBar;
-    [SerializeField] private Image _specalBarWhite; // バーの後ろの装飾
+    [SerializeField] private Image _specalBarBack; // バーの後ろの装飾
     [SerializeField] private TextMeshProUGUI _spText; // テキストの装飾
+    [SerializeField] private TextMeshProUGUI _spText2; // テキストの装飾2
     public Color FlashColor = Color.yellow; // 点滅時の色
     public float FlashSpeed = 5.0f; // 点滅の速さ
 
-    private Color _colorWhite; // 元の色を保存用
 
     public static UIManager Instance {  get; private set; }
 
@@ -27,12 +27,6 @@ public class UIManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-
-            if (_specalBarWhite != null)
-            {
-                // 起動時の色を保存
-                _colorWhite = _specalBarWhite.color;
-            }
         }
         else
         {
@@ -44,10 +38,18 @@ public class UIManager : MonoBehaviour
     {
         if (Player.PlayerCore.Instance != null && Player.PlayerCore.Instance.PermissionSpecialAttack)
         {
+            if (!_spText2.gameObject.activeSelf)
+            {
+                _spText2.gameObject.SetActive(true);    // PushSpace！という表示を出す
+            }
             FlashSpecialBar();
         }
         else
         {
+            if (_spText2.gameObject.activeSelf)
+            {
+                _spText2.gameObject.SetActive(false);   // PushSpace！という表示を消す
+            }
             ResetSpecialBarColor();
         }
     }
@@ -55,7 +57,7 @@ public class UIManager : MonoBehaviour
     // ピカピカさせる処理
     private void FlashSpecialBar()
     {
-        if (_specalBarWhite == null || _spText == null)
+        if (_spText == null || _spText2 == null)
         {
             return;
         }
@@ -64,25 +66,30 @@ public class UIManager : MonoBehaviour
         float lerp = Mathf.PingPong(Time.time * FlashSpeed, 1.0f);
 
         // 元の色とFlashColorの間で色を補完する
-        _specalBarWhite.color = Color.Lerp(_colorWhite, FlashColor, lerp);
-        _spText.color = Color.Lerp(_colorWhite, FlashColor, lerp);
+        _specalBarBack.color = Color.Lerp(Color.white, FlashColor, lerp);
+        _spText.color = Color.Lerp(Color.white, FlashColor, lerp);
+        _spText2.color = Color.Lerp(Color.white, FlashColor, lerp);
     }
 
-    // 元の色に戻す
+    // 白色に戻す
     private void ResetSpecialBarColor()
     {
-        if (_specalBarWhite == null || _spText == null)
+        if (_spText == null || _spText2 == null)
         {
             return;
         }
 
-        if (_specalBarWhite.color != _colorWhite)
+        if (_specalBarBack.color != Color.white)
         {
-            _specalBarWhite.color = _colorWhite;
+            _specalBarBack.color = Color.white;
         }
-        if (_spText.color != _colorWhite)
+        if (_spText.color != Color.white)
         {
-            _spText.color = _colorWhite;
+            _spText.color = Color.white;
+        }
+        if(_spText2.color != Color.white)
+        {
+            _spText2.color = Color.white;
         }
     }
 }

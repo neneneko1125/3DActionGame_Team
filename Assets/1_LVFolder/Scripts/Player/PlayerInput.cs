@@ -31,14 +31,11 @@ namespace Player
 
             if (Input.GetMouseButtonDown(0))
             {
-                if (Input.GetKey(KeyCode.LeftShift) && Core.PermissionSpecialAttack)
-                {
-                    StartCoroutine(InputSpecialAttack());
-                }
-                else
-                {
-                    InputAttack();
-                }
+                InputAttack();
+            }
+            else if (Input.GetKeyDown(KeyCode.Space) && Core.PermissionSpecialAttack)
+            {
+                StartCoroutine(InputSpecialAttack());
             }
 
             // コンボ継続中なら
