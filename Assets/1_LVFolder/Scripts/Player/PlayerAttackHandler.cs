@@ -1,6 +1,7 @@
 using Enemy;
 using Player;
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace Player
@@ -87,7 +88,9 @@ namespace Player
             float baseDamage = Mathf.RoundToInt(Core.PlayerData.AttackPower * (powerPercent / 100));
 
             // レベルによる攻撃力の上昇を反映
-            return baseDamage + (Core.PlayerLevel - 1) * Core.PlayerData.AttackPowerBonusPerLevel;      
+            float finalDamage = baseDamage * Core.PlayerLevel + (Core.PlayerLevel - 1) * Core.PlayerData.AttackPowerBonusPerLevel;
+
+            return finalDamage;
         }
 
         private void PlayHitEffects(Vector3 hitPosition, int powerPercent)

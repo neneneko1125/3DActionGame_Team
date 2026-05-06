@@ -6,7 +6,6 @@ using static UnityEngine.UI.Image;
 public class CameraWallFader : MonoBehaviour
 {
     [SerializeField] private LayerMask _wallLayer;
-    [SerializeField] private float _fadeAlpha = 0.3f;
 
     private Dictionary<Renderer, Material[]> _originalMaterials = new Dictionary<Renderer, Material[]>();
     private List<Renderer> _currentlyHitRenderers = new List<Renderer>();
@@ -77,7 +76,7 @@ public class CameraWallFader : MonoBehaviour
             mat.renderQueue = 3000;
 
             Color color = mat.color;
-            color.a = _fadeAlpha;
+            color.a = 1;
             mat.color = color;
         }
     }

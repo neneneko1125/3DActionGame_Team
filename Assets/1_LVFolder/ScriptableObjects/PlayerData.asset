@@ -37,7 +37,7 @@ MonoBehaviour:
     Range: 3
     DashDistance: 5
   MaxSpecialGage: 10
-  SpecialAttackThreshold: 1000
+  SpecialAttackThreshold: 500
   AttackDashDuration: 0.2
   AttackComboTime: 0.6
   StunRecoverySpeed: 1

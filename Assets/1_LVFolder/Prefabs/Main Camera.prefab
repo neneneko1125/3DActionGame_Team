@@ -52,7 +52,7 @@ MonoBehaviour:
   _wallLayer:
     serializedVersion: 2
     m_Bits: 256
-  _fadeAlpha: 0.3
+  _fadeAlpha: 1
 --- !u!114 &1914563029973103968
 MonoBehaviour:
   m_ObjectHideFlags: 0
