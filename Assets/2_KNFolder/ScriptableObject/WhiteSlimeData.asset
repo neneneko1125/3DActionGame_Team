@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 490552859ecf51e4e87c29066a9c2037, type: 3}
+  m_Name: WhiteSlimeData
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyData
+  MaxHp: 3
+  DefaultShield: 0
+  AttackPower: 1
+  DropEXP:
+  - exp: {fileID: 8410644237635118920, guid: 7b820cccd4d5cfa4f8333cbd7be6a1a5, type: 3}
+    minAmount: 2
+    maxAmount: 4
