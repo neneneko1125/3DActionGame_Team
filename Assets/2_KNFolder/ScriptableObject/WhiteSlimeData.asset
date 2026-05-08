@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 490552859ecf51e4e87c29066a9c2037, type: 3}
   m_Name: WhiteSlimeData
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  MaxHp: 3
+  MaxHp: 100
   DefaultShield: 0
-  AttackPower: 1
+  AttackPower: 20
   DropEXP:
-  - exp: {fileID: 8410644237635118920, guid: 7b820cccd4d5cfa4f8333cbd7be6a1a5, type: 3}
-    minAmount: 2
-    maxAmount: 4
+  - exp: {fileID: 5051536832370343032, guid: e94da3507c354ad4e92299ddd108fa95, type: 3}
+    minAmount: 50
+    maxAmount: 60

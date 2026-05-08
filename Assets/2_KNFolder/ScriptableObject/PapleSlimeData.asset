@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 490552859ecf51e4e87c29066a9c2037, type: 3}
   m_Name: PapleSlimeData
   m_EditorClassIdentifier: Assembly-CSharp::EnemyData
-  MaxHp: 3
-  DefaultShield: 0
-  AttackPower: 1
+  MaxHp: 30
+  DefaultShield: 30
+  AttackPower: 10
   DropEXP:
+  - exp: {fileID: 2493533445684426881, guid: e08277e5be28f404cb387f4e77bb4904, type: 3}
+    minAmount: 5
+    maxAmount: 10
   - exp: {fileID: 8410644237635118920, guid: 7b820cccd4d5cfa4f8333cbd7be6a1a5, type: 3}
-    minAmount: 2
-    maxAmount: 4
+    minAmount: 5
+    maxAmount: 10
