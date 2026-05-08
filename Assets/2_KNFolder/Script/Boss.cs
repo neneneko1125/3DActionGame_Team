@@ -96,7 +96,7 @@ namespace Enemy
                 yield return StartCoroutine(WaitForAnimation("Die"));
                 yield return new WaitForSeconds(3f);
 
-                Destroy(gameObject);
+                Dead();
             }
             else
             {

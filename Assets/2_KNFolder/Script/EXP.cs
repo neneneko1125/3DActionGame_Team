@@ -16,6 +16,10 @@ public class EXP : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (!PlayerCore.Instance)
+        {
+            return;
+        }
         Vector3 vec = PlayerCore.Instance.gameObject.transform.position - transform.position;
         if (time >= 1)
         {

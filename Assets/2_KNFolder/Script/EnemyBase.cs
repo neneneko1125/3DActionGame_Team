@@ -1,5 +1,7 @@
 using Player;
+using Unity.VectorGraphics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Enemy
 {
@@ -47,11 +49,10 @@ namespace Enemy
         }
         private void OnApplicationQuit()
         {
-            _generateEXP = false;
+            _generateEXP = SceneManager.GetActiveScene().name == "MainScene";
         }
-        private void OnDestroy()
+        protected void Dead()
         {
-            if (!_generateEXP) return;
             foreach (var de in EnemyData.DropEXP)
             {
                 int amount = Random.Range(de.minAmount, de.maxAmount + 1);
@@ -65,6 +66,15 @@ namespace Enemy
                     Instantiate(de.exp, generatePos, Quaternion.identity);
                 }
             }
+            Destroy(gameObject);
+        }
+        private void OnDestroy()
+        {
+            //if (SceneManager.GetActiveScene().name != "MainScene")
+            //{
+            //    Debug.Log("N");
+            //    return;
+            //}
 
             EnemyManager.Instance.UnRegister(this);
         }
