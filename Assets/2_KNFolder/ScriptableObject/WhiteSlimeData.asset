@@ -16,6 +16,6 @@ MonoBehaviour:
   DefaultShield: 0
   AttackPower: 20
   DropEXP:
-  - exp: {fileID: 5051536832370343032, guid: e94da3507c354ad4e92299ddd108fa95, type: 3}
-    minAmount: 50
-    maxAmount: 60
+  - exp: {fileID: 2493533445684426881, guid: 3d8b287b6d41c4c46ad1b2d49cc8030a, type: 3}
+    minAmount: 3
+    maxAmount: 5

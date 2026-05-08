@@ -14,7 +14,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 1d15c7348dbc6c04e81d87135515d6bd, type: 2}
     - target: {fileID: 3238769934464794108, guid: 3a7b3b03b86a4b848b8ab1111768fa06, type: 3}
       propertyPath: m_Name
-      value: Boss_BR
+      value: Boss_BP
       objectReference: {fileID: 0}
     - target: {fileID: 7021754761289557468, guid: 3a7b3b03b86a4b848b8ab1111768fa06, type: 3}
       propertyPath: m_LocalPosition.x
@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7033734752490126778, guid: 3a7b3b03b86a4b848b8ab1111768fa06, type: 3}
+      propertyPath: EnemyData
+      value: 
+      objectReference: {fileID: 11400000, guid: b01dca7aadbdcf74984179ec45c4a501, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

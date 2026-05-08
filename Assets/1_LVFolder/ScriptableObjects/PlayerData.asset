@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 282ab201162ce914fb4d455558066304, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
-  MaxHp: 15
+  MaxHp: 30
   HpBonusPerLevel: 5
   AttackPower: 1
   AttackPowerBonusPerLevel: 1
@@ -42,7 +42,7 @@ MonoBehaviour:
   AttackComboTime: 0.6
   StunRecoverySpeed: 1
   InvincibleDuration: 1
-  MoveSpeed: 2.5
-  TurningSpeed: 0.1
-  FallGravity: 40
+  MoveSpeed: 3
+  TurningSpeed: 0.3
+  FallGravity: 35
   GroundGravity: 2

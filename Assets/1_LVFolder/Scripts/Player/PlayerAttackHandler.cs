@@ -77,9 +77,6 @@ namespace Player
 
             // CameraManager.Instance.StartShake(duration, strength, vibrato);
             PlayHitEffects(hitPosition, powerPercent);
-
-            // ゲージ管理
-            HandleSpecialGage();
         }
 
         private float CalculateFinalDamage(int powerPercent)
@@ -100,6 +97,8 @@ namespace Player
             {
                 SEManager.Instance.PlaySE_AttackHitSP();
                 Instantiate(_effectPrefabSpecial, hitPosition, Quaternion.identity);
+
+                //SP攻撃ではゲージは増えない
             }
             else
             {
@@ -116,6 +115,9 @@ namespace Player
                 }
 
                 Instantiate(_effectPrefab, hitPosition, Quaternion.identity);  // エフェクト
+
+                // ゲージ管理
+                HandleSpecialGage();
             }
         }
 

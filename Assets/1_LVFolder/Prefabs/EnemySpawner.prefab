@@ -44,9 +44,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 907e92b5ff9271448a215c0c358ea055, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
+  _delayTime: 0
   _enemyPrefab: {fileID: 3530350126984365200, guid: 90e688c087288094d8868d267f99066e, type: 3}
   _enemyPrefab2: {fileID: 6774265551569010788, guid: cde2734ed8fc85d43b8507400261f8b2, type: 3}
   _enemyPrefab3: {fileID: 3437419489547636458, guid: 2f9eb76729f852d46a88c9702ad677f8, type: 3}
+  _enemyPrefab4: {fileID: 5692479604198700378, guid: fb8310eaecc198e419307627ea7762c3, type: 3}
+  _enemyPrefab5: {fileID: 5692479604198700378, guid: aaffb5157dec78445b3ff772f891b293, type: 3}
+  _enemyPrefab6: {fileID: 5692479604198700378, guid: 1e7f2af543d0f894da5e542cedf67363, type: 3}
+  _enemyPrefab7: {fileID: 5692479604198700378, guid: 0c782fb55c96e0149bac720df3fec15e, type: 3}
+  _enemyPrefab8: {fileID: 5692479604198700378, guid: 0c782fb55c96e0149bac720df3fec15e, type: 3}
+  _enemyPrefab9: {fileID: 6545737277479709364, guid: 20b62e3074983374ab96b8a2639374fb, type: 3}
   _phase1Point: 1
   _phase2Point: 2
-  _phase3Point: 5
+  _phase3Point: 3
+  _phase4Point: 4
+  _phase5Point: 5
+  _phase6Point: 6
+  _phase7Point: 7
+  _phase8Point: 8
