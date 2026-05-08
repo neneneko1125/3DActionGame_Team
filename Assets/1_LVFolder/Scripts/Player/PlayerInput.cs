@@ -101,6 +101,7 @@ namespace Player
 
         private void TryAttack(int speedHash, PlayerData.AttackParam param, int triggerHash)
         {
+            // Attackタグがついてるアニメーションが再生されているときはreturn
             if (Anim.GetCurrentAnimatorStateInfo(0).IsTag("Attack"))
             {
                 return;

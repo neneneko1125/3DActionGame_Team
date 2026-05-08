@@ -57,7 +57,6 @@ namespace Player
             if(collision.gameObject.TryGetComponent<EXP>(out var exp))
             {
                 PlayerEXP += exp.Point;     //経験値増加
-                Debug.Log("現在の経験値 : " + PlayerEXP + "  必要経験値 : " + PlayerLevel * NeedEXP);
                 ChackLevelUp(); 
                 Destroy(collision.gameObject);
             }
