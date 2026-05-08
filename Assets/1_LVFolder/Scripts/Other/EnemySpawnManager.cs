@@ -11,6 +11,8 @@ public class EnemySpawnManager : MonoBehaviour
     public event Action OnAllEnemiesCleared;
     public int CurrentPhase = 0;
 
+    public static int HighScore = 0;
+
     private bool _isSpawning = false;
 
     private void Awake()
@@ -41,5 +43,11 @@ public class EnemySpawnManager : MonoBehaviour
         PhaseText.text = CurrentPhase.ToString();
         yield return new WaitForSeconds(0.1f);  // 連続で生成したりPhaseをプラスしないように少しだけ待機
         _isSpawning = false;
+
+        // もし新記録を出せば更新
+        if(HighScore < CurrentPhase)
+        {
+            HighScore = CurrentPhase;
+        }
     }
 }

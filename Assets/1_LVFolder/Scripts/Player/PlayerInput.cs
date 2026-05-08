@@ -21,7 +21,7 @@ namespace Player
 
         private void Update()
         {
-            if (Core.IsStunned)
+            if (Core.IsStunned || Core.IsDead)
             {
                 MoveDirection = Vector3.zero;
                 return;
@@ -51,6 +51,7 @@ namespace Player
                 }
             }
         }
+
         private void InputMoveDirection()
         {
             float x = Input.GetAxisRaw("Horizontal");

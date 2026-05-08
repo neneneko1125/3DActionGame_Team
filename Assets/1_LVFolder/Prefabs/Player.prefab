@@ -1147,6 +1147,7 @@ MonoBehaviour:
   _flashingTime: 0.05
   _hpFillSpeedGreen: 15
   _hpFillSpeedRed: 2
+  _titleScene: TitleScene
   duration: 0.25
   strength: 0.02
   vibrato: 0.25
@@ -1219,7 +1220,6 @@ MonoBehaviour:
   IsStunned: 0
   IsInvicible: 0
   IsDead: 0
-  IsAttacking: 0
   PermissionSpecialAttack: 0
   PlayerData: {fileID: 11400000, guid: a549edd81e17e0d4bb4a323b0d327e2d, type: 2}
 --- !u!95 &8442458181626691191

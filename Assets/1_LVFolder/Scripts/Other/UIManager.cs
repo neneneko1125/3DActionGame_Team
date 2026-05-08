@@ -8,6 +8,8 @@ public class UIManager : MonoBehaviour
     public Image HPBarRed;
     public TextMeshProUGUI HPText;
     public TextMeshProUGUI LevelText;
+    public TextMeshProUGUI GameOverText;
+    public Image BlackImage;
 
     public Image EXPBarBlue;
 
@@ -32,6 +34,9 @@ public class UIManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        GameOverText.gameObject.SetActive(false);   
+        BlackImage.gameObject.SetActive(false);   
     }
 
     private void Update()

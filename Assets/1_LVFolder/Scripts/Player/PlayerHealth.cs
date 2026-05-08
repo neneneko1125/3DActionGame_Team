@@ -1,9 +1,10 @@
-using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
 using Enemy;
 using Player;
+using System.Collections;
 using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Player
 {
@@ -13,6 +14,8 @@ namespace Player
 
         [SerializeField] private float _hpFillSpeedGreen;
         [SerializeField] private float _hpFillSpeedRed;
+
+        [SerializeField] private string _titleScene;
 
         [Header("カメラの振動関連")]
         [SerializeField] private float duration;
@@ -85,8 +88,7 @@ namespace Player
 
             if (_currentHp <= 0)
             {
-                Debug.Log("PlayerのHPが0になりました");
-                // Destroy(gameObject);
+                StartCoroutine(DeadSequence());
             }
         }
 
@@ -120,6 +122,36 @@ namespace Player
             // 無敵状態で自由に動ける時間
             yield return new WaitForSeconds(Core.PlayerData.InvincibleDuration);
             Core.IsInvicible = false;
+        }
+
+        private IEnumerator DeadSequence()
+        {
+            Core.IsDead = true;
+
+            // 完全停止
+            Rb.linearVelocity = Vector3.zero;
+            Rb.angularVelocity = Vector3.zero;
+            Rb.isKinematic = true;
+
+            // ゲームオーバーテキストと暗転
+            UIManager.Instance.GameOverText.gameObject.SetActive(true);
+            UIManager.Instance.BlackImage.gameObject.SetActive(true);
+
+            Anim.SetTrigger(DeadHash);
+
+            // アニメーションの遷移を待つ
+            yield return null;
+
+            // アニメーションが終わるまで待機
+            while (Anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.95f)
+            {
+                yield return null;
+            }
+
+            // 少し余韻を持たせてからシーン遷移
+            yield return new WaitForSeconds(1.0f);
+
+            SceneManager.LoadScene(_titleScene);
         }
 
         private IEnumerator FlashRoutine()
@@ -168,7 +200,7 @@ namespace Player
             if (Input.GetKeyDown(KeyCode.P))
             {
                 Debug.Log("デバッグ機能　プレイヤーのHPを減少させました");
-                ChangeHP(-1f);
+                ChangeHP(-10f);
             }
             if (Input.GetKeyDown(KeyCode.H))
             {
