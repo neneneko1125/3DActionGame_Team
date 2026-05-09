@@ -91,7 +91,7 @@ namespace Enemy
                 GetComponent<Collider>().enabled = false;
                 SetAnimation(_isDead);
                 yield return StartCoroutine(WaitForAnimation("Die"));
-                yield return new WaitForSeconds(1.5f);
+                yield return new WaitForSeconds(1f);
   
                 Dead();
             }

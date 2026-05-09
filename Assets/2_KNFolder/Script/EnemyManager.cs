@@ -26,7 +26,7 @@ public class EnemyManager : MonoBehaviour
         {
             foreach (var enemy in _enemies)
             {
-                enemy.GetComponent<IDamaged>().ChangeHP(-100);
+                enemy.GetComponent<IDamaged>().ChangeHP(-1000);
             }
         }
     }

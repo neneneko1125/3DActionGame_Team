@@ -38,7 +38,6 @@ namespace Enemy
         }
         private void Update()
         {
-            Debug.Log(_target);
             switch (_currentState)
             {
                 case EnemyState.Idle:
@@ -94,7 +93,7 @@ namespace Enemy
                 GetComponent<Collider>().enabled = false;
                 SetAnimation(_dead);
                 yield return StartCoroutine(WaitForAnimation("Die"));
-                yield return new WaitForSeconds(3f);
+                yield return new WaitForSeconds(1.5f);
 
                 Dead();
             }
