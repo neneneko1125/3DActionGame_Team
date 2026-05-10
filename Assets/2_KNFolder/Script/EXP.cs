@@ -23,7 +23,7 @@ public class EXP : MonoBehaviour
         Vector3 vec = PlayerCore.Instance.gameObject.transform.position - transform.position;
         if (time >= 1)
         {
-            if (vec.magnitude <= 2)
+            if (vec.magnitude <= 3)
             {
                 rb.linearVelocity = vec.normalized * time * time;
                 time += Time.fixedDeltaTime;

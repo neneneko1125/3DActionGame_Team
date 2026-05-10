@@ -143,17 +143,25 @@ namespace Enemy
         }
         public void ChangeHP(float value)
         {
-            Shield += value;
-            if (Shield < 0)
+            if (Shield <= 0)
             {
-                Hp += Shield;
+                Hp += value;
                 if (Hp > 0)
                     Shield = EnemyData.MaxHp - Hp;
                 knockbackCounter = 1;
             }
             else
             {
-                return;
+                if (Shield + value > 0)
+                {
+                    Shield += value;
+                    return;
+                }
+                else
+                {
+                    Hp += value + Shield;
+                    Shield = 0;
+                }
             }
 
 
