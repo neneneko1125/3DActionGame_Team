@@ -60,7 +60,7 @@ namespace Player
         private void Update()
         {
             UpdateUI();
-            DebugOfHP();
+           // DebugOfHP();
         }
 
         public void ChangeHP(float value)
