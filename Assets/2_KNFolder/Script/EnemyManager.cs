@@ -22,13 +22,13 @@ public class EnemyManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            foreach (var enemy in _enemies)
-            {
-                enemy.GetComponent<IDamaged>().ChangeHP(-1000);
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.K))
+        //{
+        //    foreach (var enemy in _enemies)
+        //    {
+        //        enemy.GetComponent<IDamaged>().ChangeHP(-1000);
+        //    }
+        //}
     }
 
     public int GetEnemyNum(bool refresh = false)
