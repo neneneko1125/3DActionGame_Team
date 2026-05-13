@@ -7,5 +7,5 @@
 使用言語：C#  
 プレイ動画：https://youtu.be/IKIE0rIXYqg
 
-このゲームは二人で作成しました。自分のソースコードはAssets→LVFolder→Scripts～に収納されています。
+このゲームは二人で作成しました。自分のソースコードはAssets→_LVFolder→Scripts～に収納されています。
 
